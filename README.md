@@ -1,4 +1,4 @@
-limpieza
+Limpieza
 ========
 
 Aplicación para la administración de los productos en la Secretaria de Cultura.
