@@ -2,11 +2,11 @@
 	<head>
 		<title>Limpieza | Ingreso de elementos</title>
 		<meta charset="utf-8">
-		<style><?php include '../css/default.css'; ?></style>
-		<style><?php include '../css/bootstrap.css'; ?></style>
-		<script><?php include '../js/jquery.js'; ?></script>
-		<script><?php include '../js/bootstrap.js'; ?></script>
-		<script><?php include '../js/twitter-bootstrap-hover-dropdown.min.js'; ?></script>
+		<style><?php include '../templates/css/default.css'; ?></style>
+		<style><?php include '../templates/css/bootstrap.css'; ?></style>
+		<script><?php include '../templates/js/jquery.js'; ?></script>
+		<script><?php include '../templates/js/bootstrap.js'; ?></script>
+		<script><?php include '../templates/js/twitter-bootstrap-hover-dropdown.min.js'; ?></script>
 	</head>
 	<body>
 		<header>
@@ -46,9 +46,9 @@
 					<div class="form-group">
 						<label for="nombre" class="col-sm-3 control-label">Nombre</label>
 						<div class="col-sm-6">
-							<select class="form-control" name="nombre">
+							<select class="form-control" name="elemento">
 								<?php foreach($es as $e): ?>
-								<option value="<?php $e->getNombre; ?>"><?php $e->getNombre; ?></option>
+								<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(); ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>

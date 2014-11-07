@@ -2,11 +2,11 @@
 	<head>
 		<title>Limpieza | Sistema de seguimiento de stock</title>
 		<meta charset="utf-8">
-		<style><?php include '../css/default.css'; ?></style>
-		<style><?php include '../css/bootstrap.css'; ?></style>
-		<script><?php include '../js/jquery.js'; ?></script>
-		<script><?php include '../js/bootstrap.js'; ?></script>
-		<script><?php include '../js/twitter-bootstrap-hover-dropdown.min.js'; ?></script>
+		<style><?php include '../templates/css/default.css'; ?></style>
+		<style><?php include '../templates/css/bootstrap.css'; ?></style>
+		<script><?php include '../templates/js/jquery.js'; ?></script>
+		<script><?php include '../templates/js/bootstrap.js'; ?></script>
+		<script><?php include '../templates/js/twitter-bootstrap-hover-dropdown.min.js'; ?></script>
 	</head>
 	<body>
 		<header>

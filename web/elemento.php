@@ -11,11 +11,11 @@
 			
 		}
 		
-		
 		if($accion == 'ingreso'){
 			include "../classes/elemento.class.php";
 			
 			$es = Elemento::elementos();
+			
 			
 			include "../templates/elemento/ingreso.php";
 		}
@@ -32,15 +32,38 @@
 	$accion = $_POST['action'];
 	
 	if($accion == 'ingreso')
-		agregar();
+		ingreso();
 	
 	
 	function ingreso(){
 		
-		$estado = "success";
-		$mensaje = "Todo resulto exitosamente!!!";
+		include "../classes/ingreso.class.php";
 		
-		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+		$estado = "success";
+		$mensaje = "EXITO";
+		
+		$i = new Ingreso();
+		
+		$i->setElemento($_POST['elemento']);
+		$i->setCantidad($_POST['cantidad']);
+		$i->setFecha($_POST['fecha']);
+		$i->setExpediente($_POST['expediente']);
+		$i->setComentario($_POST['comentario']);
+		
+		try{
+			
+			$i->guardar();
+			
+			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+			
+		} catch(Exception $ex){
+			
+			$estado = "danger";
+			$mensaje = "ERROR: ". $ex->getMessage();
+			
+			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+		}
+		
 		die();
 	}
 	

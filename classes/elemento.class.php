@@ -124,7 +124,7 @@ class Elemento{
 				$stmt->execute();
 				
 			} catch(PDOException $ex){
-				throw new Exception("No me pude guardar como persona: ". $ex->getMessage());
+				throw new Exception("No me pude guardar como elemento: ". $ex->getMessage());
 			}
 			
 		}
@@ -139,12 +139,12 @@ class Elemento{
 				$stmt->bindParam(':nombre', $this->nombre, PDO::PARAM_STR);
 				$stmt->bindParam(':unidad', $this->unidad, PDO::PARAM_STR);
 				$stmt->bindParam(':stock', $this->stock, PDO::PARAM_INT);
-				$stmt->bindParam(':id', $this->stock, PDO::PARAM_INT);
+				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 				
 				$stmt->execute();
 				
 			} catch(PDOException $ex){
-				throw new Exception("No me pude guardar como persona: ". $ex->getMessage());
+				throw new Exception("Ocurrió un error mientras me actualizaba: ". $ex->getMessage());
 			}
 			
 		}
@@ -215,7 +215,7 @@ class Elemento{
 	
 	function setStock($stock){
 		
-		if($stock == 0)
+		if($stock < 0)
 			return;
 		
 		$this->stock = $stock;
