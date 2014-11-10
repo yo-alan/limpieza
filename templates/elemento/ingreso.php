@@ -7,6 +7,11 @@
 		<script><?php include '../templates/js/jquery.js'; ?></script>
 		<script><?php include '../templates/js/bootstrap.js'; ?></script>
 		<script><?php include '../templates/js/twitter-bootstrap-hover-dropdown.min.js'; ?></script>
+		<script>
+			function elementoChange(){
+				document.getElementByName("expediente").value = "HOLA";
+			}
+		</script>
 	</head>
 	<body>
 		<header>
@@ -39,18 +44,42 @@
 		<article>
 			<div class="container row clearfix col-md-6 col-md-offset-3 alert alert-success">
 				<div class="text-center">
-					<h2>Ingresar elementos</h2>
+					<h2>Registrar ingreso</h2>
 				</div>
 				<form role="form" class="form-horizontal" method="POST" action="elemento.php">
 					<input type="hidden" name="action" value="ingreso">
 					<div class="form-group">
-						<label for="nombre" class="col-sm-3 control-label">Nombre</label>
-						<div class="col-sm-6">
-							<select class="form-control" name="elemento">
+						<label for="nombre" class="col-sm-3 control-label">Nombre: </label>
+						<div class="col-sm-7">
+							<select class="form-control" name="elemento" onChange="elementoChange()">
 								<?php foreach($es as $e): ?>
 								<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(); ?></option>
 								<?php endforeach; ?>
 							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="cantidad" class="col-sm-3 control-label">Cantidad (<?php echo $e->getUnidad(); ?>): </label>
+						<div class="col-sm-7">
+							<input type="number" class="form-control" name="cantidad">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="fecha" class="col-sm-3 control-label">Fecha: </label>
+						<div class="col-sm-7">
+							<input type="date" class="form-control" name="fecha">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="expediente" class="col-sm-3 control-label">Expediente: </label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" name="expediente">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="comentario" class="col-sm-3 control-label">Comentario: </label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" name="comentario">
 						</div>
 					</div>
 					<div class="form-group">

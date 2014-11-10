@@ -202,6 +202,9 @@ class Ingreso{
 		if($elemento == "")
 			return;
 		
+		if($this->elemento == $elemento)
+			return;
+		
 		$this->elemento = $elemento;
 		$this->cambios = true;
 	}
@@ -213,6 +216,9 @@ class Ingreso{
 	function setCantidad($cantidad){
 		
 		if($cantidad <= 0)
+			return;
+		
+		if($this->cantidad == $cantidad)
 			return;
 		
 		$this->cantidad = $cantidad;
@@ -228,6 +234,9 @@ class Ingreso{
 		if($fecha == "")
 			return;
 		
+		if($this->fecha == $fecha)
+			return;
+		
 		$this->fecha = $fecha;
 		$this->cambios = true;
 	}
@@ -241,6 +250,9 @@ class Ingreso{
 		if($expediente == "")
 			return;
 		
+		if($this->expediente == $expediente)
+			return;
+		
 		$this->expediente = $expediente;
 		$this->cambios = true;
 	}
@@ -251,7 +263,7 @@ class Ingreso{
 	
 	function setComentario($comentario){
 		
-		if($comentario == "")
+		if($this->comentario == $comentario)
 			return;
 		
 		$this->comentario = $comentario;

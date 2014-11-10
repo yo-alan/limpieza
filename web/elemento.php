@@ -16,7 +16,6 @@
 			
 			$es = Elemento::elementos();
 			
-			
 			include "../templates/elemento/ingreso.php";
 		}
 		else{
