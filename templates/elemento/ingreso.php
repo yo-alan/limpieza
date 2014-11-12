@@ -38,7 +38,7 @@
 			</div>
 		</header>
 		<article>
-			<div class="container row clearfix col-md-6 col-md-offset-3 alert alert-success">
+			<div class="container col-md-6 col-md-offset-3 jumbotron">
 				<div class="text-center">
 					<h2>Registrar ingreso</h2>
 				</div>
@@ -80,7 +80,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-4 col-md-offset-7">
+						<div class="col-sm-4 col-md-offset-8">
 							<button type='submit' class='btn btn-default'>Guardar</button>
 						</div>
 					</div>
