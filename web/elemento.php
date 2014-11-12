@@ -39,7 +39,7 @@
 		include "../classes/ingreso.class.php";
 		
 		$estado = "success";
-		$mensaje = "EXITO";
+		$mensaje = "El ingreso se registró exitosamente.";
 		
 		$i = new Ingreso();
 		
@@ -58,7 +58,7 @@
 		} catch(Exception $ex){
 			
 			$estado = "danger";
-			$mensaje = "ERROR: ". $ex->getMessage();
+			$mensaje = "Ocurrió el siguiente error: ". $ex->getMessage();
 			
 			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
 		}

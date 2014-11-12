@@ -1,6 +1,6 @@
 <?php
 
-include "conexion.class.php";
+require_once "conexion.class.php";
 
 class Ingreso{
 	
@@ -27,7 +27,7 @@ class Ingreso{
 	//INICIO METODOS ESTATICOS
 	
 	static function ingreso($id){
-		//Metodo estatico que retorna un ingreso que posea el $legajo
+		//Metodo estatico que retorna un ingreso que posea el $id
 		
 		$i = new Ingreso();
 		
@@ -57,7 +57,7 @@ class Ingreso{
 			$i->cambios = false;
 			
 		}catch(PDOException $ex){
-			
+			throw new Exception("Ocurrió un error obteniendo el ingreso: ". $ex->getMessage());
 		}
 		
 		return $i;
@@ -90,7 +90,7 @@ class Ingreso{
 			}
 			
 		}catch(PDOException $ex){
-			
+			throw new Exception("Ocurrió un error obteniendo los ingresos: ". $ex->getMessage());
 		}
 		
 		return $is;
@@ -158,9 +158,7 @@ class Ingreso{
 			} catch(PDOException $ex){
 				throw new Exception("Ocurrió un error mientras me actualizaba: ". $ex->getMessage());
 			}
-			
 		}
-		
 	}
 	
 	function eliminar(){
