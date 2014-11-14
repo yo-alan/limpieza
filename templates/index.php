@@ -9,7 +9,7 @@
 		<script language="JavaScript" src="js/twitter-bootstrap-hover-dropdown.min.js"></script>
 	</head>
 	<body>
-		<div class="jumbotron">
+		<div class="container">
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="container-fluid">
 					<div class="navbar-header">

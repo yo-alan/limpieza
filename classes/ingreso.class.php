@@ -1,6 +1,7 @@
 <?php
 
 require_once "conexion.class.php";
+require_once "elemento.class.php";
 
 class Ingreso{
 	
@@ -17,7 +18,7 @@ class Ingreso{
 		$this->nuevo = true;
 		$this->cambios = true;
 		$this->id = 0;
-		$this->elemento = "";
+		$this->elemento = null;
 		$this->cantidad = 0;
 		$this->fecha = "";
 		$this->expediente = "";
@@ -48,7 +49,7 @@ class Ingreso{
 			$results = $consulta->fetch();
 			
 			$i->id = $results['id'];
-			$i->elemento = $results['elemento'];
+			$i->elemento = Elemento::elemento($results['elemento']);
 			$i->cantidad = $results['cantidad'];
 			$i->fecha = $results['fecha'];
 			$i->expediente = $results['expediente'];
@@ -118,6 +119,8 @@ class Ingreso{
 		
 		$conn = new Conexion();
 		
+		$conn->beginTransaction();
+		
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
@@ -126,7 +129,7 @@ class Ingreso{
 				
 				$stmt = $conn->prepare($sql);
 				
-				$stmt->bindParam(':elemento', $this->elemento, PDO::PARAM_STR);
+				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
 				$stmt->bindParam(':expediente', $this->expediente, PDO::PARAM_STR);
@@ -134,7 +137,18 @@ class Ingreso{
 				
 				$stmt->execute();
 				
+				$e = Elemento::elemento($this->elemento->getNombre());
+				
+				$e->setStock($e->getStock() + $this->cantidad);
+				
+				$e->guardar();
+				
+				$conn->commit();
+				
 			} catch(PDOException $ex){
+				
+				$conn->rollBack();
+				
 				throw new Exception("No me pude guardar como ingreso: ". $ex->getMessage());
 			}
 			
@@ -147,7 +161,7 @@ class Ingreso{
 				
 				$stmt = $conn->prepare($sql);
 				
-				$stmt->bindParam(':elemento', $this->elemento, PDO::PARAM_STR);
+				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
 				$stmt->bindParam(':expediente', $this->expediente, PDO::PARAM_STR);
@@ -155,7 +169,12 @@ class Ingreso{
 				
 				$stmt->execute();
 				
+				$conn->commit();
+				
 			} catch(PDOException $ex){
+				
+				$conn->rollBack();
+				
 				throw new Exception("Ocurrió un error mientras me actualizaba: ". $ex->getMessage());
 			}
 		}
@@ -200,10 +219,10 @@ class Ingreso{
 		if($elemento == "")
 			return;
 		
-		if($this->elemento == $elemento)
+		if($this->elemento != null && $this->elemento->getNombre() == $elemento)
 			return;
 		
-		$this->elemento = $elemento;
+		$this->elemento = Elemento::elemento($elemento);
 		$this->cambios = true;
 	}
 	

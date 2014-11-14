@@ -1,6 +1,6 @@
 <?php
 
-include "conexion.class.php";
+require_once "conexion.class.php";
 
 class Elemento{
 	
@@ -51,7 +51,7 @@ class Elemento{
 			$e->cambios = false;
 			
 		}catch(PDOException $ex){
-			
+			throw new Exception("Ocurrió un error obteniendo el elemento: ". $ex->getMessage());
 		}
 		
 		return $e;
@@ -84,7 +84,7 @@ class Elemento{
 			}
 			
 		}catch(PDOException $ex){
-			
+			throw new Exception("Ocurrió un error obteniendo los elementos: ". $ex->getMessage());
 		}
 		
 		return $es;
@@ -109,6 +109,8 @@ class Elemento{
 		
 		$conn = new Conexion();
 		
+		$conn->beginTransaction();
+		
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
@@ -123,7 +125,12 @@ class Elemento{
 				
 				$stmt->execute();
 				
+				$conn->commit();
+				
 			} catch(PDOException $ex){
+				
+				$conn->rollBack();
+				
 				throw new Exception("No me pude guardar como elemento: ". $ex->getMessage());
 			}
 			
@@ -143,7 +150,12 @@ class Elemento{
 				
 				$stmt->execute();
 				
+				$conn->commit();
+				
 			} catch(PDOException $ex){
+				
+				$conn->rollBack();
+				
 				throw new Exception("Ocurrió un error mientras me actualizaba: ". $ex->getMessage());
 			}
 			
