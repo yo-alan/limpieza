@@ -8,5 +8,6 @@
 		
 		die();
 	}
+	
 	include "../templates/index.php";
 	

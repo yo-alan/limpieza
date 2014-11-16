@@ -40,11 +40,22 @@
 			</nav>
 		</div>
 		<?php if(isset($estado)): ?>
-			<div class="container col-md-6 col-md-offset-3 alert alert-<?php echo $estado; ?>" style="width: 50%">
-				<p class="text-<?php echo $estado; ?> text-center">
-					<strong><?php echo $mensaje; ?></strong>
-				</p>
+		<div class="container col-md-6 col-md-offset-3">
+			<div class="panel panel-<?php echo $estado; ?>">
+				<div class="panel-heading">
+					<?php if($estado == "success"): ?>
+						<h3 class="panel-title"><strong>Información:</strong></h3>
+					<?php else: ?>
+						<h3 class="panel-title"><strong>Ocurrió un error:</strong></h3>
+					<?php endif; ?>
+				</div>
+				<div class="panel-body">
+					<p class="text-<?php echo $estado; ?> text-center">
+						<?php echo $mensaje; ?>
+					</p>
+				</div>
 			</div>
+		</div>
 		<?php endif; ?>
 		<div class="col-md-12">
 			<?php  ?>

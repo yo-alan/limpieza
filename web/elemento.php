@@ -58,7 +58,7 @@
 		} catch(Exception $ex){
 			
 			$estado = "danger";
-			$mensaje = "Ocurrió el siguiente error: ". $ex->getMessage();
+			$mensaje = $ex->getMessage();
 			
 			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
 		}
