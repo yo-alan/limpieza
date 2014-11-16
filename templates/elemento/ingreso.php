@@ -57,7 +57,7 @@
 					<div class="form-group">
 						<label for="cantidad" class="col-sm-3 control-label">Cantidad: </label>
 						<div class="col-sm-7">
-							<input type="number" class="form-control" name="cantidad">
+							<input type="number" class="form-control" name="cantidad" required>
 						</div>
 					</div>
 					<?php $fecha = getDate(); ?>
@@ -70,7 +70,7 @@
 					<div class="form-group">
 						<label for="expediente" class="col-sm-3 control-label">Expediente: </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" name="expediente">
+							<input type="text" class="form-control" name="expediente" required>
 						</div>
 					</div>
 					<div class="form-group">
