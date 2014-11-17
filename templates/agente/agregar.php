@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Sistema de seguimiento de stock</title>
+		<title>Limpieza | Agregar un agente nuevo</title>
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<script language="JavaScript" src="js/jquery.js"></script>
@@ -37,49 +37,22 @@
 			</div>
 		</header>
 		<article>
-			<div class="container row clearfix col-md-6 col-md-offset-3 alert alert-success">
+			<div class="container col-md-6 col-md-offset-3 jumbotron">
 				<div class="text-center">
-					<h2>Agregar elemento</h2>
+					<h2>Nuevo agente</h2>
 				</div>
-				<form role="form" class="form-horizontal" method="POST" action="elemento.php">
-					<input type="hidden" name="action" value="retiro">
+				<form role="form" class="form-horizontal" method="POST" action="agente.php">
+					<input type="hidden" name="action" value="agregar">
 					<div class="form-group">
-						<label for="agente" class="col-sm-3 control-label">Agente: </label>
+						<label for="nombre" class="col-sm-3 control-label">Nombre: </label>
 						<div class="col-sm-7">
-							<select class="form-control" name="agente">
-								<?php foreach($as as $a): ?>
-								<option value="<?php echo $a->getId(); ?>"><?php echo $a->getApellido(). ", ". $a->getNombre(); ?></option>
-								<?php endforeach; ?>
-							</select>
+							<input type="text" class="form-control" name="nombre" required>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="elemento" class="col-sm-3 control-label">Elemento: </label>
+						<label for="apellido" class="col-sm-3 control-label">Apellido: </label>
 						<div class="col-sm-7">
-							<select class="form-control" name="elemento">
-								<?php foreach($es as $e): ?>
-								<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
-								<?php endforeach; ?>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="cantidad" class="col-sm-3 control-label">Cantidad: </label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" name="cantidad" required>
-						</div>
-					</div>
-					<?php $fecha = getDate(); ?>
-					<div class="form-group">
-						<label for="fecha" class="col-sm-3 control-label">Fecha: </label>
-						<div class="col-sm-7">
-							<input type="date" class="form-control" name="fecha" value="<?php echo $fecha["year"]. "-". $fecha["mon"]. "-". $fecha["mday"]; ?>">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="comentario" class="col-sm-3 control-label">Comentario: </label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" name="comentario">
+							<input type="text" class="form-control" name="apellido" required>
 						</div>
 					</div>
 					<div class="form-group">

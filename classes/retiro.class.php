@@ -1,40 +1,41 @@
 <?php
 
 require_once "conexion.class.php";
+require_once "agente.class.php";
 require_once "elemento.class.php";
 
-class Ingreso{
+class Retiro{
 	
 	private $nuevo;
 	private $cambios;
 	private $id;
+	private $agente;
 	private $elemento;
-	private $cantidad;
 	private $fecha;
-	private $expediente;
+	private $cantidad;
 	private $comentario;
 	
 	function __construct(){
 		$this->nuevo = true;
 		$this->cambios = true;
 		$this->id = 0;
+		$this->agente = null;
 		$this->elemento = null;
-		$this->cantidad = 0;
 		$this->fecha = "";
-		$this->expediente = "";
+		$this->cantidad = 0;
 		$this->comentario = "";
 	}
 	
 	//INICIO METODOS ESTATICOS
 	
-	static function ingreso($id){
-		//Metodo estatico que retorna un ingreso que posea el $id
+	static function retiro($id){
+		//Metodo estatico que retorna un retiro que posea el $id
 		
-		$i = new Ingreso();
+		$r = new Retiro();
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT * FROM ingreso WHERE id = :id';
+		$sql = 'SELECT * FROM retiro WHERE id = :id';
 		
 		$consulta = $conn->prepare($sql);
 		
@@ -48,30 +49,30 @@ class Ingreso{
 			
 			$results = $consulta->fetch();
 			
-			$i->id = $results['id'];
-			$i->elemento = Elemento::elemento($results['elemento']);
-			$i->cantidad = $results['cantidad'];
-			$i->fecha = $results['fecha'];
-			$i->expediente = $results['expediente'];
-			$i->comentario = $results['comentario'];
-			$i->nuevo = false;
-			$i->cambios = false;
+			$r->id = $results['id'];
+			$r->agente = $results['agente'];
+			$r->elemento = $results['elemento'];
+			$r->fecha = $results['fecha'];
+			$r->cantidad = $results['cantidad'];
+			$r->comentario = $results['comentario'];
+			$r->nuevo = false;
+			$r->cambios = false;
 			
 		}catch(PDOException $ex){
-			throw new Exception("Ocurrió un error obteniendo el ingreso: ". $ex->getMessage());
+			throw new Exception("Ocurrió un error obteniendo el retiro: ". $ex->getMessage());
 		}
 		
-		return $i;
+		return $a;
 	}
 	
-	static function ingresos(){
-		//METODO ESTATICO QUE RETORNA TODOS LOS ingresoS DE LA BASE
+	static function retiros(){
+		//METODO ESTATICO QUE RETORNA TODOS LOS RETIROS DE LA BASE
 		
-		$is = array();
+		$rs = array();
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT id FROM ingreso';
+		$sql = 'SELECT id FROM retiro';
 		
 		$consulta = $conn->prepare($sql);
 		
@@ -85,37 +86,37 @@ class Ingreso{
 			
 			foreach($results as $r){
 				
-				$i = Ingreso::ingreso($r['id']);
+				$rt = Retiro::retiro($r['id']);
 				
-				array_push($is, $i);
+				array_push($rs, $rt);
 			}
 			
 		}catch(PDOException $ex){
-			throw new Exception("Ocurrió un error obteniendo los ingresos: ". $ex->getMessage());
+			throw new Exception("Ocurrió un error obteniendo los retiros: ". $ex->getMessage());
 		}
 		
-		return $is;
+		return $rs;
 	}
 	
 	//INICIO METODOS DE CLASE
 	
 	function guardar(){
-		//Metodo de clase que guarda un ingreso en la base
+		//Metodo de clase que guarda un retiro en la base
 		
 		if(!$this->cambios)//Si no hay cambios en el objeto
 			return;
 		
-		if($this->elemento == "")
-			throw new Exception("El elemento no es válido.");
+		if($this->agente == null)
+			throw new Exception("El agente no es válido.");
 		
-		if($this->cantidad <= 0)
-			throw new Exception("La cantidad no es válida.");
+		if($this->elemento == null)
+			throw new Exception("EL elemento no es válida.");
 		
 		if($this->fecha == "")
 			throw new Exception("La fecha no es válida.");
 		
-		if($this->expediente == "")
-			throw new Exception("El número de expediente no es válido.");
+		if($this->cantidad == "")
+			throw new Exception("La cantidad no es válida.");
 		
 		$conn = new Conexion();
 		
@@ -124,22 +125,22 @@ class Ingreso{
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
-				$sql = "INSERT INTO ingreso(elemento, cantidad, fecha, expediente, comentario)
-						VALUES(:elemento, :cantidad, :fecha, :expediente, :comentario)";
+				$sql = "INSERT INTO retiro(agente, fecha, cantidad, comentario)
+						VALUES(:agente, :fecha, :cantidad, :comentario)";
 				
 				$stmt = $conn->prepare($sql);
 				
-				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_STR);
-				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
+				$stmt->bindParam(':agente', $this->agente->getId(), PDO::PARAM_INT);
+				$stmt->bindParam(':elemento', $this->elemento->getId(), PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
-				$stmt->bindParam(':expediente', $this->expediente, PDO::PARAM_STR);
+				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
 				
 				$stmt->execute();
 				
 				$e = Elemento::elemento($this->elemento->getNombre());
 				
-				$e->setStock($e->getStock() + $this->cantidad);
+				$e->setStock($e->getStock() - $this->cantidad);
 				
 				$e->guardar();
 				
@@ -149,22 +150,22 @@ class Ingreso{
 				
 				$conn->rollBack();
 				
-				throw new Exception("No me pude guardar como ingreso: ". $ex->getMessage());
+				throw new Exception("No me pude guardar como retiro: ". $ex->getMessage());
 			}
 			
 		}
 		else{//Si el objeto no es nuevo se hace un UPDATE
 			
 			try{
-				$sql = "UPDATE ingreso SET elemento = :elemento, cantidad = :cantidad, fecha = :fecha, expediente = :expediente, comentario = :comentario
+				$sql = "UPDATE retiro SET agente = :agente, fecha = :fecha, cantidad = :cantidad, comentario = :comentario
 						WHERE id = :id";
 				
 				$stmt = $conn->prepare($sql);
 				
-				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_STR);
-				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
+				$stmt->bindParam(':agente', $this->agente->getId(), PDO::PARAM_INT);
+				$stmt->bindParam(':elemento', $this->elemento->getId(), PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
-				$stmt->bindParam(':expediente', $this->expediente, PDO::PARAM_STR);
+				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_STR);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
 				
 				$stmt->execute();
@@ -181,7 +182,7 @@ class Ingreso{
 	}
 	
 	function eliminar(){
-		//Metodo de clase que elimina un ingreso de la base
+		//Metodo de clase que elimina un retiro de la base
 		
 		if(!$this->nuevo)
 			return;
@@ -190,7 +191,7 @@ class Ingreso{
 			return;
 		
 		try{
-			$sql = "DELETE FROM ingreso WHERE id = :id";
+			$sql = "DELETE FROM retiro WHERE id = :id";
 			
 			$stmt = $conn->prepare($sql);
 			
@@ -210,35 +211,39 @@ class Ingreso{
 		return $this->id;
 	}
 	
+	function getAgente(){
+		return $this->agente;
+	}
+	
+	function setAgente($agente){
+		
+		if($agente == null)
+			return;
+		
+		if($this->agente != null && $this->agente->getId() == $agente->getId())
+			return;
+		
+		$this->agente = $agente;
+		$this->cambios = true;
+	}
+	
+	function getFecha(){
+		return $this->fecha;
+	}
+	
 	function getElemento(){
 		return $this->elemento;
 	}
 	
 	function setElemento($elemento){
 		
-		if($elemento == "")
+		if($elemento == null)
 			return;
 		
-		if($this->elemento != null && $this->elemento->getNombre() == $elemento)
+		if($this->elemento != null && $this->elemento->getId() == $elemento->getId())
 			return;
 		
-		$this->elemento = Elemento::elemento($elemento);
-		$this->cambios = true;
-	}
-	
-	function getCantidad(){
-		return $this->cantidad;
-	}
-	
-	function setCantidad($cantidad){
-		
-		if($cantidad <= 0)
-			return;
-		
-		if($this->cantidad == $cantidad)
-			return;
-		
-		$this->cantidad = $cantidad;
+		$this->elemento = $elemento;
 		$this->cambios = true;
 	}
 	
@@ -258,19 +263,19 @@ class Ingreso{
 		$this->cambios = true;
 	}
 	
-	function getExpediente(){
-		return $this->expediente;
+	function getCantidad(){
+		return $this->cantidad;
 	}
 	
-	function setExpediente($expediente){
+	function setCantidad($cantidad){
 		
-		if($expediente == "")
+		if($cantidad == "")
 			return;
 		
-		if($this->expediente == $expediente)
+		if($this->cantidad == $cantidad)
 			return;
 		
-		$this->expediente = $expediente;
+		$this->cantidad = $cantidad;
 		$this->cambios = true;
 	}
 	
@@ -286,5 +291,4 @@ class Ingreso{
 		$this->comentario = $comentario;
 		$this->cambios = true;
 	}
-	
 }

@@ -21,11 +21,8 @@
 								<a href="elemento.php" class="dropdown-toggle" data-hover="dropdown">Elementos <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="elemento.php?action=ingreso">Registrar ingreso</a></li>
-<!--
 									<li><a href="elemento.php?action=retiro">Registrar retiro</a></li>
--->
 								</ul>
-<!--
 							</li>
 							<li class="dropdown">
 								<a href="agente.php" class="dropdown-toggle" data-hover="dropdown">Agentes <span class="caret"></span></a>
@@ -33,7 +30,6 @@
 									<li><a href="agente.php?action=agregar">Agregar</a></li>
 								</ul>
 							</li>
--->
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->
