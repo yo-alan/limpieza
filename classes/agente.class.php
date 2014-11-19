@@ -61,7 +61,7 @@ class Agente{
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT id FROM agente';
+		$sql = 'SELECT id FROM agente ORDER BY apellido, nombre';
 		
 		$consulta = $conn->prepare($sql);
 		
@@ -103,8 +103,6 @@ class Agente{
 		
 		$conn = new Conexion();
 		
-		$conn->beginTransaction();
-		
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
@@ -117,11 +115,7 @@ class Agente{
 				
 				$stmt->execute();
 				
-				$conn->commit();
-				
 			} catch(PDOException $ex){
-				
-				$conn->rollBack();
 				
 				throw new Exception("No me pude guardar como agente: ". $ex->getMessage());
 			}
@@ -140,11 +134,7 @@ class Agente{
 				
 				$stmt->execute();
 				
-				$conn->commit();
-				
 			} catch(PDOException $ex){
-				
-				$conn->rollBack();
 				
 				throw new Exception("Ocurrió un error mientras me actualizaba: ". $ex->getMessage());
 			}
@@ -188,7 +178,24 @@ class Agente{
 	function setNombre($nombre){
 		
 		if($nombre == "")
-			return;
+			throw new Exception("El nombre contiene caracteres no permitidos.");
+		
+		if(count(explode(' ', $nombre)) > 1){
+			
+			$nombres = explode(' ', $nombre);
+			
+			if(in_array("", $nombres))
+				unset($nombres[sizeof($nombres)-1]);
+			
+			foreach($nombres as $n){
+				
+				if(!ctype_alpha($n))
+					throw new Exception("El nombre contiene caracteres no permitidos.");
+				
+			}
+		}
+		else if(!ctype_alpha($nombre))
+			throw new Exception("El nombre contiene caracteres no permitidos.");
 		
 		if($this->nombre == ucfirst($nombre))
 			return;
@@ -204,7 +211,24 @@ class Agente{
 	function setApellido($apellido){
 		
 		if($apellido == "")
-			return;
+			throw new Exception("El apellido no puede estar vacío.");
+		
+		if(count(explode(' ', $apellido)) > 1){
+			
+			$apellidos = explode(' ', $apellido);
+			
+			if(in_array("", $apellidos))
+				unset($apellidos[sizeof($apellidos)-1]);
+			
+			foreach($apellidos as $a){
+				
+				if(!ctype_alpha($a))
+					throw new Exception("El apellido contiene caracteres no permitidos.");
+				
+			}
+		}
+		else if(!ctype_alpha($apellido))
+			throw new Exception("El apellido contiene caracteres no permitidos.");
 		
 		if($this->apellido == ucfirst($apellido))
 			return;

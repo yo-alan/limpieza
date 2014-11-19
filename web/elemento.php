@@ -29,7 +29,11 @@
 			include "../templates/elemento/retiro.php";
 		}
 		else{
+			include_once "../classes/elemento.class.php";
 			
+			$es = Elemento::elementos();
+			
+			include "../templates/elemento/stock.php";
 		}
 		
 		die();
@@ -53,15 +57,15 @@
 		$estado = "success";
 		$mensaje = "El ingreso se registró exitosamente.";
 		
-		$i = new Ingreso();
-		
-		$i->setElemento($_POST['elemento']);
-		$i->setCantidad($_POST['cantidad']);
-		$i->setFecha($_POST['fecha']);
-		$i->setExpediente($_POST['expediente']);
-		$i->setComentario($_POST['comentario']);
-		
 		try{
+			
+			$i = new Ingreso();
+			
+			$i->setElemento($_POST['elemento']);
+			$i->setCantidad($_POST['cantidad']);
+			$i->setFecha($_POST['fecha']);
+			$i->setExpediente($_POST['expediente']);
+			$i->setComentario($_POST['comentario']);
 			
 			$i->guardar();
 			
@@ -72,8 +76,9 @@
 			$estado = "danger";
 			$mensaje = $ex->getMessage();
 			
-			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
 		}
+		
+		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}
@@ -85,27 +90,26 @@
 		$estado = "success";
 		$mensaje = "El retiro se registró exitosamente.";
 		
-		$r = new Retiro();
-		
-		$r->setAgente($_POST['agente']);
-		$r->setElemento($_POST['elemento']);
-		$r->setFecha($_POST['fecha']);
-		$r->setCantidad($_POST['cantidad']);
-		$r->setComentario($_POST['comentario']);
-		
 		try{
 			
-			$r->guardar();
+			$r = new Retiro();
 			
-			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+			$r->setAgente($_POST['agente']);
+			$r->setElemento($_POST['elemento']);
+			$r->setFecha($_POST['fecha']);
+			$r->setCantidad($_POST['cantidad']);
+			$r->setComentario($_POST['comentario']);
+			
+			$r->guardar();
 			
 		} catch(Exception $ex){
 			
 			$estado = "danger";
 			$mensaje = $ex->getMessage();
 			
-			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
 		}
+		
+		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}

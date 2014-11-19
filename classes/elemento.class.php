@@ -64,7 +64,7 @@ class Elemento{
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT nombre FROM elemento';
+		$sql = 'SELECT nombre FROM elemento ORDER BY nombre';
 		
 		$consulta = $conn->prepare($sql);
 		
@@ -109,8 +109,6 @@ class Elemento{
 		
 		$conn = new Conexion();
 		
-		$conn->beginTransaction();
-		
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
@@ -125,11 +123,7 @@ class Elemento{
 				
 				$stmt->execute();
 				
-				$conn->commit();
-				
 			} catch(PDOException $ex){
-				
-				$conn->rollBack();
 				
 				throw new Exception("No me pude guardar como elemento: ". $ex->getMessage());
 			}
@@ -150,11 +144,7 @@ class Elemento{
 				
 				$stmt->execute();
 				
-				$conn->commit();
-				
 			} catch(PDOException $ex){
-				
-				$conn->rollBack();
 				
 				throw new Exception("Ocurrió un error mientras me actualizaba: ". $ex->getMessage());
 			}
@@ -228,8 +218,8 @@ class Elemento{
 	function setStock($stock){
 		
 		if($stock < 0)
-			return;
-		
+			throw new Exception("El stock no es puede ser negativo.");
+			
 		$this->stock = $stock;
 		$this->cambios = true;
 	}

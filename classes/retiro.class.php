@@ -120,13 +120,39 @@ class Retiro{
 		
 		$conn = new Conexion();
 		
-		$conn->beginTransaction();
-		
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
-				$sql = "INSERT INTO retiro(agente, fecha, cantidad, comentario)
-						VALUES(:agente, :fecha, :cantidad, :comentario)";
+				$sql = "INSERT INTO retiro(agente, elemento, fecha, cantidad, comentario)
+						VALUES(:agente, :elemento, :fecha, :cantidad, :comentario)";
+				
+				$stmt = $conn->prepare($sql);
+				
+				$stmt->bindParam(':agente', $this->agente->getId(), PDO::PARAM_INT);
+				$stmt->bindParam(':elemento', $this->elemento->getId(), PDO::PARAM_INT);
+				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
+				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
+				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
+				
+				$e = Elemento::elemento($this->elemento->getNombre());
+				
+				$e->setStock($e->getStock() - $this->cantidad);
+				
+				$e->guardar();
+				
+				$stmt->execute();
+				
+			} catch(PDOException $ex){
+				
+				throw new Exception("No me pude guardar como retiro: ". $ex->getMessage());
+			}
+			
+		}
+		else{//Si el objeto no es nuevo se hace un UPDATE
+			
+			try{
+				$sql = "UPDATE retiro SET agente = :agente, elemento = :elemento, fecha = :fecha, cantidad = :cantidad, comentario = :comentario
+						WHERE id = :id";
 				
 				$stmt = $conn->prepare($sql);
 				
@@ -138,43 +164,7 @@ class Retiro{
 				
 				$stmt->execute();
 				
-				$e = Elemento::elemento($this->elemento->getNombre());
-				
-				$e->setStock($e->getStock() - $this->cantidad);
-				
-				$e->guardar();
-				
-				$conn->commit();
-				
 			} catch(PDOException $ex){
-				
-				$conn->rollBack();
-				
-				throw new Exception("No me pude guardar como retiro: ". $ex->getMessage());
-			}
-			
-		}
-		else{//Si el objeto no es nuevo se hace un UPDATE
-			
-			try{
-				$sql = "UPDATE retiro SET agente = :agente, fecha = :fecha, cantidad = :cantidad, comentario = :comentario
-						WHERE id = :id";
-				
-				$stmt = $conn->prepare($sql);
-				
-				$stmt->bindParam(':agente', $this->agente->getId(), PDO::PARAM_INT);
-				$stmt->bindParam(':elemento', $this->elemento->getId(), PDO::PARAM_INT);
-				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
-				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_STR);
-				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
-				
-				$stmt->execute();
-				
-				$conn->commit();
-				
-			} catch(PDOException $ex){
-				
-				$conn->rollBack();
 				
 				throw new Exception("Ocurrió un error mientras me actualizaba: ". $ex->getMessage());
 			}
@@ -223,12 +213,8 @@ class Retiro{
 		if($this->agente != null && $this->agente->getId() == $agente->getId())
 			return;
 		
-		$this->agente = $agente;
+		$this->agente = Agente::agente($agente);
 		$this->cambios = true;
-	}
-	
-	function getFecha(){
-		return $this->fecha;
 	}
 	
 	function getElemento(){
@@ -243,7 +229,7 @@ class Retiro{
 		if($this->elemento != null && $this->elemento->getId() == $elemento->getId())
 			return;
 		
-		$this->elemento = $elemento;
+		$this->elemento = Elemento::elemento($elemento);
 		$this->cambios = true;
 	}
 	

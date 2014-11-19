@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Sistema de seguimiento de stock</title>
+		<title>Limpieza | Retirar elementos</title>
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<script language="JavaScript" src="js/jquery.js"></script>
@@ -37,9 +37,9 @@
 			</div>
 		</header>
 		<article>
-			<div class="container row clearfix col-md-6 col-md-offset-3 alert alert-success">
+			<div class="container row clearfix col-md-6 col-md-offset-3 jumbotron">
 				<div class="text-center">
-					<h2>Agregar elemento</h2>
+					<h2>Registrar retiro de elementos</h2>
 				</div>
 				<form role="form" class="form-horizontal" method="POST" action="elemento.php">
 					<input type="hidden" name="action" value="retiro">
@@ -66,7 +66,7 @@
 					<div class="form-group">
 						<label for="cantidad" class="col-sm-3 control-label">Cantidad: </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" name="cantidad" required>
+							<input type="number" class="form-control" name="cantidad" required>
 						</div>
 					</div>
 					<?php $fecha = getDate(); ?>

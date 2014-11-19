@@ -2,3 +2,7 @@ body {
     background: url('../images/bg.jpg') repeat;
     margin: 0;
 }
+
+table td,table th {
+    text-align: center;
+}

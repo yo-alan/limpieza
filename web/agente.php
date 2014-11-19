@@ -38,24 +38,23 @@
 		$estado = "success";
 		$mensaje = "El agente se guardó exitosamente.";
 		
-		$a = new Agente();
-		
-		$a->setNombre($_POST['nombre']);
-		$a->setApellido($_POST['apellido']);
-		
 		try{
 			
-			$a->guardar();
+			$a = new Agente();
 			
-			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+			$a->setNombre($_POST['nombre']);
+			$a->setApellido($_POST['apellido']);
+			
+			$a->guardar();
 			
 		} catch(Exception $ex){
 			
 			$estado = "danger";
 			$mensaje = $ex->getMessage();
 			
-			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
 		}
+		
+		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}
