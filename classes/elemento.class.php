@@ -218,7 +218,7 @@ class Elemento{
 	function setStock($stock){
 		
 		if($stock < 0)
-			throw new Exception("El stock no es puede ser negativo.");
+			throw new Exception("El stock no puede ser negativo.");
 			
 		$this->stock = $stock;
 		$this->cambios = true;

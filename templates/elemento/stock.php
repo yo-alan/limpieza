@@ -54,16 +54,16 @@
 					<tbody>
 						<?php foreach($es as $e):?>
 						<tr>
-							<td><?php echo $e->getNombre()?></td>
-							<td><?php echo $e->getUnidad()?></td>
-							<td><?php echo $e->getStock()?></td>
+							<td><?php echo $e->getNombre() ?></td>
+							<td><?php echo $e->getUnidad() ?></td>
+							<td><?php echo $e->getStock() ?></td>
 							<td>
 								<div class="btn btn-group btn-block">
-									<a class="btn btn-success form-control" title="Ingresar" href="">
-										<i class="glyphicon glyphicon-thumbs-up"></i>
+									<a class="btn btn-success btn-control" title="Ingresar" href="?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
+										<i class="glyphicon glyphicon-plus"></i>
 									</a>
-									<a class="btn btn-danger form-control" title="Retirar" href="">
-										<i class="glyphicon glyphicon-thumbs-down"></i>
+									<a class="btn btn-danger btn-control" title="Retirar" href="?action=retiro&nombre=<?php echo $e->getNombre() ?>">
+										<i class="glyphicon glyphicon-minus"></i>
 									</a>
 								</div>
 							</td>
