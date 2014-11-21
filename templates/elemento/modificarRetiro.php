@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Retirar elementos</title>
+		<title>Limpieza | Modificar retiro</title>
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<script language="JavaScript" src="js/jquery.js"></script>
@@ -49,16 +49,21 @@
 		<article>
 			<div class="container row clearfix col-md-6 col-md-offset-3 jumbotron">
 				<div class="text-center">
-					<h2>Registrar retiro de elementos</h2>
+					<h2>Modificar retiro de elementos</h2>
 				</div>
 				<form role="form" class="form-horizontal" method="POST" action="elemento.php">
-					<input type="hidden" name="action" value="retiro">
+					<input type="hidden" name="action" value="modificarRetiro">
+					<input type="hidden" name="id" value="<?php echo $r->getId() ?>">
 					<div class="form-group">
 						<label for="agente" class="col-sm-3 control-label">Agente: </label>
 						<div class="col-sm-7">
 							<select class="form-control" name="agente">
 								<?php foreach($as as $a): ?>
-								<option value="<?php echo $a->getId(); ?>"><?php echo $a->getApellido(). ", ". $a->getNombre(); ?></option>
+								<?php 	if($a->getNombre() == $r->getAgente()->getNombre()): ?>
+									<option value="<?php echo $a->getId(); ?>" selected="selected"><?php echo $a->getApellido(). ", ". $a->getNombre() ?></option>
+								<?php 	else: ?>
+									<option value="<?php echo $a->getId(); ?>"><?php echo $a->getApellido(). ", ". $a->getNombre() ?></option>
+								<?php 	endif; ?>
 								<?php endforeach; ?>
 							</select>
 						</div>
@@ -68,7 +73,11 @@
 						<div class="col-sm-7">
 							<select class="form-control" name="elemento">
 								<?php foreach($es as $e): ?>
-								<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
+								<?php 	if($e->getNombre() == $i->getElemento()->getNombre()): ?>
+									<option value="<?php echo $e->getNombre(); ?>" selected="selected"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
+								<?php 	else: ?>
+									<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
+								<?php 	endif; ?>
 								<?php endforeach; ?>
 							</select>
 						</div>

@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Stock de los elementos</title>
+		<title>Limpieza | Historial de ingresos</title>
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<script language="JavaScript" src="js/jquery.js"></script>
@@ -52,27 +52,34 @@
 		</header>
 		<article>
 			<div class="container col-md-10 col-md-offset-1 jumbotron">
+				<div class="text-center">
+					<h2>Historial de ingreso</h2>
+				</div>
 				<table class="table table-striped tablaData">
 					<thead>
 						<tr>
-							<th>Producto</th>
-							<th>Unidad de medida</th>
-							<th>Stock</th>
-							<th>Operaciones</th>
+							<th>Fecha</th>
+							<th>Elemento</th>
+							<th>Cantidad</th>
+							<th>Expediente</th>
+							<th>Comentario</th>
+							<th>Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($es as $e):?>
+						<?php foreach($is as $i):?>
 						<tr>
-							<td><?php echo $e->getNombre() ?></td>
-							<td><?php echo $e->getUnidad() ?></td>
-							<td><?php echo $e->getStock() ?></td>
+							<td><?php echo $i->getFecha() ?></td>
+							<td><?php echo $i->getElemento()->getNombre() ?></td>
+							<td><?php echo $i->getCantidad() ?></td>
+							<td><?php echo $i->getExpediente() ?></td>
+							<td><?php echo $i->getComentario() ?></td>
 							<td>
 								<div class="btn btn-group btn-block">
-									<a class="btn btn-success btn-control" title="Ingresar" href="?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-plus"></i>
+									<a class="btn btn-default btn-control" title="Modificar" href="?action=modificarIngreso&id=<?php echo $i->getId() ?>">
+										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
-									<a class="btn btn-danger btn-control" title="Retirar" href="?action=retiro&nombre=<?php echo $e->getNombre() ?>">
+									<a class="btn btn-danger btn-control disabled" title="Eliminar" href="?action=eliminarIngreso&id=<?php echo $i->getId() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
 								</div>

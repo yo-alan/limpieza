@@ -13,15 +13,22 @@
 				<nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
 						<div class="navbar-header">
-							<a class="navbar-brand" href="index.php">Inicio</a>
+							<a class="navbar-brand" href="index.php">Limpieza</a>
 						</div>
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
 								<li class="dropdown">
-									<a href="elemento.php" class="dropdown-toggle" data-hover="dropdown">Elementos <span class="caret"></span></a>
+									<a href="elemento.php?action=historialIngreso" class="dropdown-toggle" data-hover="dropdown">Ingreso <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="elemento.php?action=ingreso">Registrar ingreso</a></li>
+										<li><a href="elemento.php?action=historialIngreso">Historial</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="elemento.php?action=historialRetiro" class="dropdown-toggle" data-hover="dropdown">Retiro <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
 										<li><a href="elemento.php?action=retiro">Registrar retiro</a></li>
+										<li><a href="elemento.php?action=historialRetiro">Historial</a></li>
 									</ul>
 								</li>
 								<li class="dropdown">
@@ -29,6 +36,9 @@
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="agente.php?action=agregar">Agregar</a></li>
 									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="elemento.php" class="dropdown-toggle" data-hover="dropdown">Ver Stock</a>
 								</li>
 							</ul>
 						</div><!-- /.navbar-collapse -->

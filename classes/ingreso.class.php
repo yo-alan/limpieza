@@ -166,6 +166,7 @@ class Ingreso{
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
 				$stmt->bindParam(':expediente', $this->expediente, PDO::PARAM_STR);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
+				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 				
 				$stmt->execute();
 				

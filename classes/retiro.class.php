@@ -161,6 +161,7 @@ class Retiro{
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
+				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 				
 				$stmt->execute();
 				
