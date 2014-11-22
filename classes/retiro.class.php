@@ -50,8 +50,8 @@ class Retiro{
 			$results = $consulta->fetch();
 			
 			$r->id = $results['id'];
-			$r->agente = $results['agente'];
-			$r->elemento = $results['elemento'];
+			$r->agente = Agente::agente($results['agente']);
+			$r->elemento = Elemento::elemento($results['elemento']);
 			$r->fecha = $results['fecha'];
 			$r->cantidad = $results['cantidad'];
 			$r->comentario = $results['comentario'];
@@ -62,7 +62,7 @@ class Retiro{
 			throw new Exception("Ocurrió un error obteniendo el retiro: ". $ex->getMessage());
 		}
 		
-		return $a;
+		return $r;
 	}
 	
 	static function retiros(){
@@ -110,7 +110,7 @@ class Retiro{
 			throw new Exception("El agente no es válido.");
 		
 		if($this->elemento == null)
-			throw new Exception("EL elemento no es válida.");
+			throw new Exception("El elemento no es válido.");
 		
 		if($this->fecha == "")
 			throw new Exception("La fecha no es válida.");
@@ -129,7 +129,7 @@ class Retiro{
 				$stmt = $conn->prepare($sql);
 				
 				$stmt->bindParam(':agente', $this->agente->getId(), PDO::PARAM_INT);
-				$stmt->bindParam(':elemento', $this->elemento->getId(), PDO::PARAM_INT);
+				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
@@ -157,7 +157,7 @@ class Retiro{
 				$stmt = $conn->prepare($sql);
 				
 				$stmt->bindParam(':agente', $this->agente->getId(), PDO::PARAM_INT);
-				$stmt->bindParam(':elemento', $this->elemento->getId(), PDO::PARAM_INT);
+				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);

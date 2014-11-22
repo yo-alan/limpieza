@@ -53,15 +53,15 @@
 		<article>
 			<div class="container col-md-10 col-md-offset-1 jumbotron">
 				<div class="text-center">
-					<h2>Historial de ingreso</h2>
+					<h2>Historial de retiros</h2>
 				</div>
 				<table class="table table-striped tablaData">
 					<thead>
 						<tr>
 							<th>Fecha</th>
+							<th>Agente</th>
 							<th>Elemento</th>
 							<th>Cantidad</th>
-							<th>Expediente</th>
 							<th>Comentario</th>
 							<th>Acciones</th>
 						</tr>
@@ -76,10 +76,10 @@
 							<td><?php echo $r->getComentario() ?></td>
 							<td>
 								<div class="btn btn-group btn-block">
-									<a class="btn btn-default btn-control" title="Modificar" href="?action=modificarRetiro&id=<?php echo $i->getId() ?>">
+									<a class="btn btn-default btn-control" title="Modificar" href="?action=modificarRetiro&id=<?php echo $r->getId() ?>">
 										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
-									<a class="btn btn-danger btn-control disabled" title="Eliminar" href="?action=eliminarRetiro&id=<?php echo $i->getId() ?>">
+									<a class="btn btn-danger btn-control disabled" title="Eliminar" href="?action=eliminarRetiro&id=<?php echo $r->getId() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
 								</div>

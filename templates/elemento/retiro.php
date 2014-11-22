@@ -68,8 +68,10 @@
 						<div class="col-sm-7">
 							<select class="form-control" name="elemento">
 								<?php foreach($es as $e): ?>
-								<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
-								<?php endforeach; ?>
+									<?php if($e->getStock() > 0): ?>
+									<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
+									<?php endif; ?>
+									<?php endforeach; ?>
 							</select>
 						</div>
 					</div>

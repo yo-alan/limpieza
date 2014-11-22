@@ -53,7 +53,7 @@
 		<article>
 			<div class="container col-md-10 col-md-offset-1 jumbotron">
 				<div class="text-center">
-					<h2>Historial de ingreso</h2>
+					<h2>Historial de ingresos</h2>
 				</div>
 				<table class="table table-striped tablaData">
 					<thead>

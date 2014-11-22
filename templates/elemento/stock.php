@@ -68,7 +68,7 @@
 							<td><?php echo $e->getUnidad() ?></td>
 							<td><?php echo $e->getStock() ?></td>
 							<td>
-								<div class="btn btn-group btn-block">
+								<div class="btn btn-group btn-block center-block">
 									<a class="btn btn-success btn-control" title="Ingresar" href="?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
 										<i class="glyphicon glyphicon-plus"></i>
 									</a>

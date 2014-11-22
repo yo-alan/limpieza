@@ -73,7 +73,7 @@
 						<div class="col-sm-7">
 							<select class="form-control" name="elemento">
 								<?php foreach($es as $e): ?>
-								<?php 	if($e->getNombre() == $i->getElemento()->getNombre()): ?>
+								<?php 	if($e->getNombre() == $r->getElemento()->getNombre()): ?>
 									<option value="<?php echo $e->getNombre(); ?>" selected="selected"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
 								<?php 	else: ?>
 									<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
@@ -85,20 +85,20 @@
 					<div class="form-group">
 						<label for="cantidad" class="col-sm-3 control-label">Cantidad: </label>
 						<div class="col-sm-7">
-							<input type="number" class="form-control" name="cantidad" required>
+							<input type="number" class="form-control" name="cantidad" value="<?php echo $r->getCantidad() ?>" required>
 						</div>
 					</div>
-					<?php $fecha = getDate(); ?>
+					
 					<div class="form-group">
 						<label for="fecha" class="col-sm-3 control-label">Fecha: </label>
 						<div class="col-sm-7">
-							<input type="date" class="form-control" name="fecha" value="<?php echo $fecha["year"]. "-". $fecha["mon"]. "-". $fecha["mday"]; ?>">
+							<input type="date" class="form-control" name="fecha" value="<?php echo $r->getFecha() ?>">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="comentario" class="col-sm-3 control-label">Comentario: </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" name="comentario">
+							<input type="text" class="form-control" name="comentario" value="<?php echo $r->getComentario() ?>">
 						</div>
 					</div>
 					<div class="form-group">

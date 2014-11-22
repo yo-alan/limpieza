@@ -75,7 +75,7 @@
 			
 			$es = Elemento::elementos();
 			$as = Agente::agentes();
-			$r = Ingreso::ingreso($_GET['id']);
+			$r = Retiro::retiro($_GET['id']);
 			
 			include "../templates/elemento/modificarRetiro.php";
 		}
@@ -205,6 +205,8 @@
 	function modificarRetiro(){
 		
 		include_once "../classes/retiro.class.php";
+		include_once "../classes/elemento.class.php";
+		include_once "../classes/agente.class.php";
 		
 		$estado = "success";
 		$mensaje = "El retiro se registró exitosamente.";
@@ -213,8 +215,8 @@
 			
 			$r = Retiro::retiro($_POST['id']);;
 			
-			$r->setAgente($_POST['agente']);
-			$r->setElemento($_POST['elemento']);
+			$r->setAgente(Agente::agente($_POST['agente']));
+			$r->setElemento(Elemento::elemento($_POST['elemento']));
 			$r->setFecha($_POST['fecha']);
 			$r->setCantidad($_POST['cantidad']);
 			$r->setComentario($_POST['comentario']);

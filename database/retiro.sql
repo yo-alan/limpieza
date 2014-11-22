@@ -4,7 +4,7 @@ CREATE TABLE retiro(
 	
 	id int auto_increment,
 	agente int NOT NULL,
-	elemento int NOT NULL,
+	elemento varchar(100) NOT NULL,
 	fecha date NOT NULL,
 	cantidad int NOT NULL,
 	comentario text,
@@ -18,5 +18,5 @@ CREATE TABLE retiro(
 	
 	CONSTRAINT fk_elemento_retiro
 		FOREIGN KEY (elemento)
-		REFERENCES elemento (id)
+		REFERENCES elemento (nombre)
 );

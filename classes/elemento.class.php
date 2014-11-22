@@ -29,7 +29,7 @@ class Elemento{
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT id, nombre, unidad, stock FROM elemento WHERE nombre = :nombre';
+		$sql = 'SELECT * FROM elemento WHERE nombre = :nombre';
 		
 		$consulta = $conn->prepare($sql);
 		
