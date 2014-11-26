@@ -6,6 +6,7 @@
 		<script language="JavaScript" src="js/jquery.js"></script>
 		<script language="JavaScript" src="js/bootstrap.js"></script>
 		<script language="JavaScript" src="js/twitter-bootstrap-hover-dropdown.min.js"></script>
+		<script language="JavaScript" src="js/selectProducto.js"></script>
 	</head>
 	<body>
 		<header>
@@ -66,19 +67,23 @@
 					<div class="form-group">
 						<label for="elemento" class="col-sm-3 control-label">Elemento: </label>
 						<div class="col-sm-7">
-							<select class="form-control" name="elemento">
+							<select class="form-control" name="elemento" id="elemento" onchange="selectProducto();">
 								<?php foreach($es as $e): ?>
 									<?php if($e->getStock() > 0): ?>
-									<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(). " - ". $e->getUnidad(); ?></option>
+										<?php if(isset($_GET['nombre']) && $_GET['nombre'] == $e->getNombre()): ?>
+											<option selected="selected" value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(); ?></option>
+										<?php else: ?>
+											<option value="<?php echo $e->getNombre(); ?>"><?php echo $e->getNombre(); ?></option>
+										<?php endif; ?>
 									<?php endif; ?>
-									<?php endforeach; ?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="cantidad" class="col-sm-3 control-label">Cantidad: </label>
+						<label id="cantidad" for="cantidad" class="col-sm-3 control-label">Cantidad: </label>
 						<div class="col-sm-7">
-							<input type="number" class="form-control" name="cantidad" required>
+							<input maxlength="<?php echo $e->getStock(); ?>" type="number" class="form-control" name="cantidad" required>
 						</div>
 					</div>
 					<?php $fecha = getDate(); ?>

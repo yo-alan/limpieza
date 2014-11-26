@@ -72,9 +72,15 @@
 									<a class="btn btn-success btn-control" title="Ingresar" href="?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
 										<i class="glyphicon glyphicon-plus"></i>
 									</a>
+									<?php if($e->getStock() > 0): ?>
 									<a class="btn btn-danger btn-control" title="Retirar" href="?action=retiro&nombre=<?php echo $e->getNombre() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
+									<?php else: ?>
+									<a class="btn btn-danger btn-control disabled" title="Retirar" href="?action=retiro&nombre=<?php echo $e->getNombre() ?>">
+										<i class="glyphicon glyphicon-minus"></i>
+									</a>
+									<?php endif; ?>
 								</div>
 							</td>
 						<?php endforeach;?>

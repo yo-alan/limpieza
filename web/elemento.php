@@ -209,7 +209,7 @@
 		include_once "../classes/agente.class.php";
 		
 		$estado = "success";
-		$mensaje = "El retiro se registró exitosamente.";
+		$mensaje = "El retiro se modificó exitosamente.";
 		
 		try{
 			
