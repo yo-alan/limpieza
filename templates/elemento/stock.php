@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<meta charset="UTF-8">
 		<title>Limpieza | Stock de los elementos</title>
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -11,7 +12,7 @@
         <script src="js/jquery.dataTables.min.js"></script>
         <script src="js/listadosTabla.js"></script>
 	</head>
-	<body>
+	<body style="background-color: #0174DF;">
 		<header>
 			<div class="container">
 				<nav class="navbar navbar-default" role="navigation">
@@ -22,21 +23,21 @@
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
 								<li class="dropdown">
-									<a href="elemento.php?action=historialIngreso" class="dropdown-toggle" data-hover="dropdown">Ingreso <span class="caret"></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingreso <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="elemento.php?action=ingreso">Registrar ingreso</a></li>
 										<li><a href="elemento.php?action=historialIngreso">Historial</a></li>
 									</ul>
 								</li>
 								<li class="dropdown">
-									<a href="elemento.php?action=historialRetiro" class="dropdown-toggle" data-hover="dropdown">Retiro <span class="caret"></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Retiro <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="elemento.php?action=retiro">Registrar retiro</a></li>
 										<li><a href="elemento.php?action=historialRetiro">Historial</a></li>
 									</ul>
 								</li>
 								<li class="dropdown">
-									<a href="agente.php" class="dropdown-toggle" data-hover="dropdown">Agentes <span class="caret"></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Agentes <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="agente.php?action=agregar">Agregar</a></li>
 									</ul>

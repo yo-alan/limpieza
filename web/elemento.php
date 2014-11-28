@@ -124,8 +124,6 @@
 			
 			$i->guardar();
 			
-			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
-			
 		} catch(Exception $ex){
 			
 			$estado = "danger";
@@ -133,7 +131,7 @@
 			
 		}
 		
-		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+		header("Location: elemento.php?action=ingreso&estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}
@@ -157,8 +155,6 @@
 			
 			$i->guardar();
 			
-			header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
-			
 		} catch(Exception $ex){
 			
 			$estado = "danger";
@@ -166,7 +162,7 @@
 			
 		}
 		
-		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+		header("Location: elemento.php?action=modificarIngreso&estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}
@@ -197,7 +193,7 @@
 			
 		}
 		
-		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+		header("Location: elemento.php?action=retiro&estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}
@@ -230,7 +226,7 @@
 			
 		}
 		
-		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+		header("Location: elemento.php?action=modificarRetiro&estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}

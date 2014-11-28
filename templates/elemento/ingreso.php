@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<meta charset="UTF-8">
 		<title>Limpieza | Ingreso de elementos</title>
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -8,7 +9,7 @@
 		<script language="JavaScript" src="js/twitter-bootstrap-hover-dropdown.min.js"></script>
 		<script language="JavaScript" src="js/selectProducto.js"></script>
 	</head>
-	<body>
+	<body style="background-color: #0174DF;">
 		<header>
 			<div class="container">
 				<nav class="navbar navbar-default" role="navigation">
@@ -19,21 +20,21 @@
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
 								<li class="dropdown">
-									<a href="elemento.php?action=historialIngreso" class="dropdown-toggle" data-hover="dropdown">Ingreso <span class="caret"></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingreso <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="elemento.php?action=ingreso">Registrar ingreso</a></li>
 										<li><a href="elemento.php?action=historialIngreso">Historial</a></li>
 									</ul>
 								</li>
 								<li class="dropdown">
-									<a href="elemento.php?action=historialRetiro" class="dropdown-toggle" data-hover="dropdown">Retiro <span class="caret"></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Retiro <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="elemento.php?action=retiro">Registrar retiro</a></li>
 										<li><a href="elemento.php?action=historialRetiro">Historial</a></li>
 									</ul>
 								</li>
 								<li class="dropdown">
-									<a href="agente.php" class="dropdown-toggle" data-hover="dropdown">Agentes <span class="caret"></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Agentes <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="agente.php?action=agregar">Agregar</a></li>
 									</ul>
@@ -48,6 +49,24 @@
 			</div>
 		</header>
 		<article>
+			<?php if(isset($_GET["estado"])): ?>
+			<div class="container col-md-6 col-md-offset-3">
+				<div class="panel panel-<?php echo $_GET["estado"]; ?>">
+					<div class="panel-heading">
+						<?php if($_GET["estado"] == "success"): ?>
+							<h3 class="panel-title"><strong>Información:</strong></h3>
+						<?php else: ?>
+							<h3 class="panel-title"><strong>Ocurrió un error:</strong></h3>
+						<?php endif; ?>
+					</div>
+					<div class="panel-body">
+						<p class="text-<?php echo $_GET["estado"]; ?> text-center">
+							<?php echo $_GET["mensaje"]; ?>
+						</p>
+					</div>
+				</div>
+			</div>
+			<?php endif; ?>
 			<div class="container col-md-6 col-md-offset-3 jumbotron">
 				<div class="text-center">
 					<h2>Registrar ingreso</h2>

@@ -16,7 +16,7 @@
 			include "../templates/agente/agregar.php";
 		}
 		else{
-			
+			header("Location: index.php");
 		}
 		
 		die();
@@ -54,8 +54,7 @@
 			
 		}
 		
-		header("Location: index.php?estado=". $estado. "&mensaje=". $mensaje);
+		header("Location: agente.php?action=agregar&estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}
-	

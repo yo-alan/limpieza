@@ -243,6 +243,13 @@ class Retiro{
 		if($fecha == "")
 			return;
 		
+		$hoy = getDate();
+		
+		$hoy = $hoy["year"]. "-". $hoy["mon"]. "-". $hoy["mday"];
+		
+		if(strtotime($fecha) > strtotime($hoy))
+			throw new Exception("La fecha no es válida: No se puede expecificar una fecha futura.");
+		
 		if($this->fecha == $fecha)
 			return;
 		
