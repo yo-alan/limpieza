@@ -1,7 +1,7 @@
 <html>
 	<head>
-		<meta charset="UTF-8">
 		<title>Limpieza | Stock de los elementos</title>
+		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<script language="JavaScript" src="js/jquery.js"></script>

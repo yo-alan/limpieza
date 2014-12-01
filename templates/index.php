@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Limpieza | Sistema de seguimiento de stock</title>
+		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<script language="JavaScript" src="js/jquery.js"></script>
@@ -14,6 +15,11 @@
 	<body style="background-color: #0174DF;">
 		<header>
 			<div class="container">
+				<div class="container">
+<!--
+					<img src="images/logo.png">
+-->
+				</div>
 				<nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
 						<div class="navbar-header">
@@ -41,9 +47,6 @@
 										<li><a href="agente.php?action=agregar">Agregar</a></li>
 									</ul>
 								</li>
-								<li class="dropdown">
-									<a href="elemento.php" class="dropdown-toggle" data-hover="dropdown">Ver Stock</a>
-								</li>
 							</ul>
 						</div><!-- /.navbar-collapse -->
 					</div><!-- /.container-fluid -->
@@ -52,6 +55,9 @@
 		</header>
 		<article>
 			<div class="container col-md-10 col-md-offset-1 jumbotron">
+				<div class="text-center">
+					<h2>Stock de elementos</h2>
+				</div>
 				<table class="table table-striped tablaData">
 					<thead>
 						<tr>

@@ -1,7 +1,7 @@
 <html>
 	<head>
-		<meta charset="UTF-8">
 		<title>Limpieza | Ingreso de elementos</title>
+		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<script language="JavaScript" src="js/jquery.js"></script>
@@ -90,14 +90,15 @@
 					<div class="form-group">
 						<label id="cantidad" for="cantidad" class="col-sm-3 control-label">Cantidad: </label>
 						<div class="col-sm-7">
-							<input type="number" class="form-control" name="cantidad" required>
+							<input type="number" class="form-control" name="cantidad" value="1" required>
 						</div>
 					</div>
 					<?php $fecha = getDate(); ?>
+					<?php $fecha = date("Y-m-d", strtotime($fecha["year"]. "-". $fecha["mon"]. "-". $fecha["mday"])); ?>
 					<div class="form-group">
 						<label for="fecha" class="col-sm-3 control-label">Fecha: </label>
 						<div class="col-sm-7">
-							<input type="date" class="form-control" name="fecha" value="<?php echo $fecha["year"]. "-". $fecha["mon"]. "-". $fecha["mday"]; ?>">
+							<input type="date" class="form-control" name="fecha" value="<?php echo $fecha; ?>">
 						</div>
 					</div>
 					<div class="form-group">
