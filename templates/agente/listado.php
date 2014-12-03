@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Sistema de seguimiento de stock</title>
+		<title>Limpieza | Listado de agentes</title>
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -15,11 +15,6 @@
 	<body style="background-color: #0174DF;">
 		<header>
 			<div class="container">
-				<div class="container">
-<!--
-					<img src="images/logo.png">
--->
-				</div>
 				<nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
 						<div class="navbar-header">
@@ -47,6 +42,9 @@
 										<li><a href="agente.php?action=agregar">Agregar</a></li>
 									</ul>
 								</li>
+								<li class="dropdown">
+									<a href="elemento.php" class="dropdown-toggle" data-hover="dropdown">Ver Stock</a>
+								</li>
 							</ul>
 						</div><!-- /.navbar-collapse -->
 					</div><!-- /.container-fluid -->
@@ -55,38 +53,25 @@
 		</header>
 		<article>
 			<div class="container col-md-10 col-md-offset-1 jumbotron">
-				<div class="text-center">
-					<h2>Stock de elementos</h2>
-				</div>
 				<table class="table table-striped tablaData">
 					<thead>
 						<tr>
-							<th>Producto</th>
-							<th>Unidad de medida</th>
-							<th>Stock</th>
-							<th>Ingresar/Retirar</th>
+							<th>Agente</th>
+							<th>Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($es as $e):?>
+						<?php foreach($as as $a):?>
 						<tr>
-							<td><?php echo $e->getNombre() ?></td>
-							<td><?php echo $e->getUnidad() ?></td>
-							<td><?php echo $e->getStock() ?></td>
+							<td><?php echo $a->getApellido(). ", ". $a->getNombre() ?></td>
 							<td>
 								<div class="btn btn-group">
-									<a class="btn btn-success" title="Ingresar" href="elemento.php?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-plus"></i>
+									<a class="btn btn-default " title="Editar" href="?action=editar&id=<?php echo $a->getId() ?>">
+										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
-									<?php if($e->getStock() > 0): ?>
-									<a class="btn btn-danger" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
+									<a class="btn btn-danger disabled" title="Eliminar" href="?action=eliminar&id=<?php echo $a->getId() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
-									<?php else: ?>
-									<a class="btn btn-danger disabled" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-minus"></i>
-									</a>
-									<?php endif; ?>
 								</div>
 							</td>
 						<?php endforeach;?>

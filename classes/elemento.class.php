@@ -177,6 +177,31 @@ class Elemento{
 		
 	}
 	
+	function imprimir(){
+		
+		$conn = new Conexion();
+		
+		$conn->exec("set names latin1");
+		
+		$sql = 'SELECT nombre, unidad, stock FROM elemento ORDER BY nombre';
+		
+		$consulta = $conn->prepare($sql);
+		
+		$consulta->setFetchMode(PDO::FETCH_ASSOC);
+		
+		try{
+			
+			$consulta->execute();
+			
+			$results = $consulta->fetchall();
+			
+		}catch(PDOException $ex){
+			throw new Exception("Ocurrió un error obteniendo los elementos: ". $ex->getMessage());
+		}
+		
+		return $results;
+	}
+	
 	//INICIO METODOS GETTERS Y SETTERS
 	
 	function getId(){

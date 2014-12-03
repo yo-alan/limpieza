@@ -76,11 +76,11 @@
 							<td><?php echo $r->getCantidad() ?></td>
 							<td><?php echo $r->getComentario() ?></td>
 							<td>
-								<div class="btn btn-group btn-block">
-									<a class="btn btn-default btn-control" title="Modificar" href="?action=modificarRetiro&id=<?php echo $r->getId() ?>">
+								<div class="btn btn-group">
+									<a class="btn btn-default" title="Modificar" href="?action=modificarRetiro&id=<?php echo $r->getId() ?>">
 										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
-									<a class="btn btn-danger btn-control disabled" title="Eliminar" href="?action=eliminarRetiro&id=<?php echo $r->getId() ?>">
+									<a class="btn btn-danger disabled" title="Eliminar" href="?action=eliminarRetiro&id=<?php echo $r->getId() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
 								</div>

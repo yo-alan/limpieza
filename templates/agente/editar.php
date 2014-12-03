@@ -1,25 +1,16 @@
 <html>
 	<head>
-		<title>Limpieza | Sistema de seguimiento de stock</title>
+		<title>Limpieza | Editar un agente</title>
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<script language="JavaScript" src="js/jquery.js"></script>
 		<script language="JavaScript" src="js/bootstrap.js"></script>
 		<script language="JavaScript" src="js/twitter-bootstrap-hover-dropdown.min.js"></script>
-        <link rel="stylesheet" href="css/jquery.dataTables.css">
-        <link rel="stylesheet" href="css/jquery.dataTables_themeroller.css">
-        <script src="js/jquery.dataTables.min.js"></script>
-        <script src="js/listadosTabla.js"></script>
 	</head>
 	<body style="background-color: #0174DF;">
 		<header>
 			<div class="container">
-				<div class="container">
-<!--
-					<img src="images/logo.png">
--->
-				</div>
 				<nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
 						<div class="navbar-header">
@@ -47,6 +38,9 @@
 										<li><a href="agente.php?action=agregar">Agregar</a></li>
 									</ul>
 								</li>
+								<li class="dropdown">
+									<a href="elemento.php" class="dropdown-toggle" data-hover="dropdown">Ver Stock</a>
+								</li>
 							</ul>
 						</div><!-- /.navbar-collapse -->
 					</div><!-- /.container-fluid -->
@@ -54,44 +48,49 @@
 			</div>
 		</header>
 		<article>
-			<div class="container col-md-10 col-md-offset-1 jumbotron">
-				<div class="text-center">
-					<h2>Stock de elementos</h2>
+			<?php if(isset($_GET["estado"])): ?>
+			<div class="container col-md-6 col-md-offset-3">
+				<div class="panel panel-<?php echo $_GET["estado"]; ?>">
+					<div class="panel-heading">
+						<?php if($_GET["estado"] == "success"): ?>
+							<h3 class="panel-title"><strong>Información:</strong></h3>
+						<?php else: ?>
+							<h3 class="panel-title"><strong>Ocurrió un error:</strong></h3>
+						<?php endif; ?>
+					</div>
+					<div class="panel-body">
+						<p class="text-<?php echo $_GET["estado"]; ?> text-center">
+							<?php echo $_GET["mensaje"]; ?>
+						</p>
+					</div>
 				</div>
-				<table class="table table-striped tablaData">
-					<thead>
-						<tr>
-							<th>Producto</th>
-							<th>Unidad de medida</th>
-							<th>Stock</th>
-							<th>Ingresar/Retirar</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach($es as $e):?>
-						<tr>
-							<td><?php echo $e->getNombre() ?></td>
-							<td><?php echo $e->getUnidad() ?></td>
-							<td><?php echo $e->getStock() ?></td>
-							<td>
-								<div class="btn btn-group">
-									<a class="btn btn-success" title="Ingresar" href="elemento.php?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-plus"></i>
-									</a>
-									<?php if($e->getStock() > 0): ?>
-									<a class="btn btn-danger" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-minus"></i>
-									</a>
-									<?php else: ?>
-									<a class="btn btn-danger disabled" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-minus"></i>
-									</a>
-									<?php endif; ?>
-								</div>
-							</td>
-						<?php endforeach;?>
-					</tbody>
-				</table>
+			</div>
+			<?php endif; ?>
+			<div class="container col-md-6 col-md-offset-3 jumbotron">
+				<div class="text-center">
+					<h2>Editar agente</h2>
+				</div>
+				<form role="form" class="form-horizontal" method="POST" action="agente.php">
+					<input type="hidden" name="action" value="editar">
+					<input type="hidden" name="id" value="<?php echo $a->getId() ?>" >
+					<div class="form-group">
+						<label for="nombre" class="col-sm-3 control-label">Nombre: </label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" name="nombre" value="<?php echo $a->getNombre() ?>" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="apellido" class="col-sm-3 control-label">Apellido: </label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" name="apellido" value="<?php echo $a->getApellido() ?>" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-4 col-md-offset-8">
+							<button type='submit' class='btn btn-default'>Guardar</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</article>
 		<footer>

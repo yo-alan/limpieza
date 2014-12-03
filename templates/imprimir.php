@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Stock de los elementos</title>
+		<title>Limpieza | Sistema de seguimiento de stock</title>
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -15,6 +15,11 @@
 	<body style="background-color: #0174DF;">
 		<header>
 			<div class="container">
+				<div class="container">
+<!--
+					<img src="images/logo.png">
+-->
+				</div>
 				<nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
 						<div class="navbar-header">
@@ -42,9 +47,6 @@
 										<li><a href="agente.php?action=agregar">Agregar</a></li>
 									</ul>
 								</li>
-								<li class="dropdown">
-									<a href="elemento.php" class="dropdown-toggle" data-hover="dropdown">Ver Stock</a>
-								</li>
 							</ul>
 						</div><!-- /.navbar-collapse -->
 					</div><!-- /.container-fluid -->
@@ -52,42 +54,7 @@
 			</div>
 		</header>
 		<article>
-			<div class="container col-md-10 col-md-offset-1 jumbotron">
-				<table class="table table-striped tablaData">
-					<thead>
-						<tr>
-							<th>Producto</th>
-							<th>Unidad de medida</th>
-							<th>Stock</th>
-							<th>Operaciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach($es as $e):?>
-						<tr>
-							<td><?php echo $e->getNombre() ?></td>
-							<td><?php echo $e->getUnidad() ?></td>
-							<td><?php echo $e->getStock() ?></td>
-							<td>
-								<div class="btn btn-group btn-block center-block">
-									<a class="btn btn-success btn-control" title="Ingresar" href="?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-plus"></i>
-									</a>
-									<?php if($e->getStock() > 0): ?>
-									<a class="btn btn-danger btn-control" title="Retirar" href="?action=retiro&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-minus"></i>
-									</a>
-									<?php else: ?>
-									<a class="btn btn-danger btn-control disabled" title="Retirar" href="?action=retiro&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-minus"></i>
-									</a>
-									<?php endif; ?>
-								</div>
-							</td>
-						<?php endforeach;?>
-					</tbody>
-				</table>
-			</div>
+			
 		</article>
 		<footer>
 			<div class="container">
