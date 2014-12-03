@@ -13,8 +13,9 @@
         <script src="js/listadosTabla.js"></script>
 	</head>
 	<body style="background-color: #0174DF;">
+		<div class="container col-md-10 col-md-offset-1 jumbotron">
 		<header>
-			<div class="container">
+			<div class="container col-md-10 col-md-offset-1 jumbotron">
 				<div class="container">
 <!--
 					<img src="images/logo.png">
@@ -55,7 +56,7 @@
 		</header>
 		<article>
 			<div class="container col-md-10 col-md-offset-1 jumbotron">
-				<div class="text-center">
+				<div class="text-left">
 					<h2>Stock de elementos</h2>
 				</div>
 				<table class="table table-striped tablaData">
@@ -98,6 +99,6 @@
 			<div class="container">
 				
 			</div>
-		</footer>
+		</footer></div>
 	</body>
 </html>

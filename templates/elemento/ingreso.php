@@ -61,6 +61,12 @@
 					</div>
 					<div class="panel-body">
 						<p class="text-<?php echo $_GET["estado"]; ?> text-center">
+							<?php if($_GET["estado"] == "success"): ?>
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+							<?php else: ?>
+								<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<?php endif; ?>
+							
 							<?php echo $_GET["mensaje"]; ?>
 						</p>
 					</div>
