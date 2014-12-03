@@ -5,7 +5,7 @@
 	header('Content-type: text/html; charset=utf-8');
 	
 	include_once "../classes/elemento.class.php";
-		
+	
 	$es = Elemento::elementos();
 	
 	if(isset($_GET['estado'])){

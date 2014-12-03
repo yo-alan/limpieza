@@ -75,16 +75,16 @@
 							<td><?php echo $e->getUnidad() ?></td>
 							<td><?php echo $e->getStock() ?></td>
 							<td>
-								<div class="btn btn-group btn-block center-block">
-									<a class="btn btn-success btn-control" title="Ingresar" href="elemento.php?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
+								<div class="btn btn-group">
+									<a class="btn btn-success" title="Ingresar" href="elemento.php?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
 										<i class="glyphicon glyphicon-plus"></i>
 									</a>
 									<?php if($e->getStock() > 0): ?>
-									<a class="btn btn-danger btn-control" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
+									<a class="btn btn-danger" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
 									<?php else: ?>
-									<a class="btn btn-danger btn-control disabled" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
+									<a class="btn btn-danger disabled" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
 									<?php endif; ?>

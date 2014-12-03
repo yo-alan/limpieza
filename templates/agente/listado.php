@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Historial de ingresos</title>
+		<title>Limpieza | Listado de agentes</title>
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -53,34 +53,23 @@
 		</header>
 		<article>
 			<div class="container col-md-10 col-md-offset-1 jumbotron">
-				<div class="text-center">
-					<h2>Historial de retiros</h2>
-				</div>
 				<table class="table table-striped tablaData">
 					<thead>
 						<tr>
-							<th>Fecha</th>
 							<th>Agente</th>
-							<th>Elemento</th>
-							<th>Cantidad</th>
-							<th>Comentario</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($rs as $r):?>
+						<?php foreach($as as $a):?>
 						<tr>
-							<td><?php echo $r->getFecha() ?></td>
-							<td><?php echo $r->getAgente()->getApellido(). ", ". $r->getAgente()->getNombre() ?></td>
-							<td><?php echo $r->getElemento()->getNombre() ?></td>
-							<td><?php echo $r->getCantidad() ?></td>
-							<td><?php echo $r->getComentario() ?></td>
+							<td><?php echo $a->getApellido(). ", ". $a->getNombre() ?></td>
 							<td>
 								<div class="btn btn-group">
-									<a class="btn btn-default" title="Modificar" href="?action=modificarRetiro&id=<?php echo $r->getId() ?>">
+									<a class="btn btn-default " title="Editar" href="?action=editar&id=<?php echo $a->getId() ?>">
 										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
-									<a class="btn btn-danger disabled" title="Eliminar" href="?action=eliminarRetiro&id=<?php echo $r->getId() ?>">
+									<a class="btn btn-danger disabled" title="Eliminar" href="?action=eliminar&id=<?php echo $a->getId() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
 								</div>

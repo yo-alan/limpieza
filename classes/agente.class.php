@@ -131,6 +131,7 @@ class Agente{
 				
 				$stmt->bindParam(':nombre', $this->nombre, PDO::PARAM_STR);
 				$stmt->bindParam(':apellido', $this->apellido, PDO::PARAM_STR);
+				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 				
 				$stmt->execute();
 				
