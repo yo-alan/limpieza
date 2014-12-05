@@ -12,7 +12,7 @@
         <script src="js/jquery.dataTables.min.js"></script>
         <script src="js/listadosTabla.js"></script>
 	</head>
-	<body style="background-color: #0174DF;">
+	<body>
 		<header>
 			<div class="container">
 				<nav class="navbar navbar-default" role="navigation">

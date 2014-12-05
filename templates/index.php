@@ -12,7 +12,7 @@
         <script src="js/jquery.dataTables.min.js"></script>
         <script src="js/listadosTabla.js"></script>
 	</head>
-	<body style="background-color: #0174DF;">
+	<body>
 		<div class="container col-md-10 col-md-offset-1 jumbotron">
 		<header>
 			<div class="container col-md-10 col-md-offset-1 jumbotron">

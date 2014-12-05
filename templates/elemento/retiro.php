@@ -9,7 +9,7 @@
 		<script language="JavaScript" src="js/twitter-bootstrap-hover-dropdown.min.js"></script>
 		<script language="JavaScript" src="js/selectProducto.js"></script>
 	</head>
-	<body style="background-color: #0174DF;">
+	<body>
 		<header>
 			<div class="container">
 				<nav class="navbar navbar-default" role="navigation">
