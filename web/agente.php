@@ -10,9 +10,6 @@
 		
 		if(isset($_GET['action']))
 			$accion = $_GET['action'];
-		else{
-			
-		}
 		
 		if($accion == 'agregar'){
 			include "../templates/agente/agregar.php";
@@ -20,7 +17,7 @@
 		else if($accion == 'editar'){
 			
 			if(!(isset($_GET['id']) && $_GET['id'] > 0))
-				header("Location: agente.php");
+				header("Location: index.php");
 			
 			include_once "../classes/agente.class.php";
 			

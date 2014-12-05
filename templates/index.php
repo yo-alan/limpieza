@@ -13,92 +13,61 @@
         <script src="js/listadosTabla.js"></script>
 	</head>
 	<body>
-		<div class="container col-md-10 col-md-offset-1 jumbotron">
-		<header>
-			<div class="container col-md-10 col-md-offset-1 jumbotron">
+		<div class="container jumbotron">
+			<header>
+				<?php include_once "../templates/header.php"; ?>
+			</header>
+			<article>
+				<div class="container col-md-10 col-md-offset-1">
+					<div class="text-left">
+						<h2>Stock de elementos</h2>
+					</div>
+					<div class="text-right">
+						<a class="btn btn-primary" href="elemento.php?action=imprimirStock">Imprimir Stock</a>
+					</div>
+					<table class="table table-striped table-bordered tablaData">
+						<thead>
+							<tr>
+								<th>Producto</th>
+								<th>Unidad de medida</th>
+								<th>Stock</th>
+								<th>Ingresar/Retirar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($es as $e):?>
+							<tr>
+								<td><?php echo $e->getNombre() ?></td>
+								<td><?php echo $e->getUnidad() ?></td>
+								<td><?php echo $e->getStock() ?></td>
+								<td>
+									<div class="btn btn-group">
+										<a class="btn btn-success" title="Ingresar" href="elemento.php?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
+											<i class="glyphicon glyphicon-plus"></i>
+										</a>
+										<?php if($e->getStock() > 0): ?>
+										<a class="btn btn-danger" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
+											<i class="glyphicon glyphicon-minus"></i>
+										</a>
+										<?php else: ?>
+										<a class="btn btn-danger disabled" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
+											<i class="glyphicon glyphicon-minus"></i>
+										</a>
+										<?php endif; ?>
+									</div>
+								</td>
+							<?php endforeach;?>
+						</tbody>
+					</table>
+				</div>
+			</article>
+			<footer>
 				<div class="container">
-<!--
-					<img src="images/logo.png">
--->
+					<p class="text-right">
+						Aplicación desarrollada por Alan Marchán, Depto. Informática.
+					</p>
 				</div>
-				<nav class="navbar navbar-default" role="navigation">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<a class="navbar-brand" href="index.php">Limpieza</a>
-						</div>
-						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingreso <span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="elemento.php?action=ingreso">Registrar ingreso</a></li>
-										<li><a href="elemento.php?action=historialIngreso">Historial</a></li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Retiro <span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="elemento.php?action=retiro">Registrar retiro</a></li>
-										<li><a href="elemento.php?action=historialRetiro">Historial</a></li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Agentes <span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="agente.php?action=agregar">Agregar</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div><!-- /.navbar-collapse -->
-					</div><!-- /.container-fluid -->
-				</nav>
-			</div>
-		</header>
-		<article>
-			<div class="container col-md-10 col-md-offset-1 jumbotron">
-				<div class="text-left">
-					<h2>Stock de elementos</h2>
-				</div>
-				<table class="table table-striped tablaData">
-					<thead>
-						<tr>
-							<th>Producto</th>
-							<th>Unidad de medida</th>
-							<th>Stock</th>
-							<th>Ingresar/Retirar</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach($es as $e):?>
-						<tr>
-							<td><?php echo $e->getNombre() ?></td>
-							<td><?php echo $e->getUnidad() ?></td>
-							<td><?php echo $e->getStock() ?></td>
-							<td>
-								<div class="btn btn-group">
-									<a class="btn btn-success" title="Ingresar" href="elemento.php?action=ingreso&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-plus"></i>
-									</a>
-									<?php if($e->getStock() > 0): ?>
-									<a class="btn btn-danger" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-minus"></i>
-									</a>
-									<?php else: ?>
-									<a class="btn btn-danger disabled" title="Retirar" href="elemento.php?action=retiro&nombre=<?php echo $e->getNombre() ?>">
-										<i class="glyphicon glyphicon-minus"></i>
-									</a>
-									<?php endif; ?>
-								</div>
-							</td>
-						<?php endforeach;?>
-					</tbody>
-				</table>
-			</div>
-		</article>
-		<footer>
-			<div class="container">
-				
-			</div>
-		</footer></div>
+			</footer>
+		</div>
 	</body>
 </html>

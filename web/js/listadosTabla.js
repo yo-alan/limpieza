@@ -5,10 +5,10 @@ $(function(){
             "sProcessing" : "Procesando...",
             "sLengthMenu" : "<h6>Mostrar _MENU_ registros</h6>",
             "sZeroRecords" : "No se encontraron resultados",
-            "sInfo": "Mostrando desde _START_ hasta _END_ de _TOTAL_ Registros",
-            "sInfoEmpty": "Showing 0 to 0 of 0 records",
+            "sInfo": "Mostrando desde _START_ hasta _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando desde 0 a 0 de 0 resultados",
             "sInfoFiltered": "(filtered from _MAX_ total records)",
-            "sSearch" : "Buscar",
+            "sSearch" : "Buscar: ",
             "oPaginate" : {
                 "sFirst" : "Primero",
                 "sPrevious" : "Anterior",

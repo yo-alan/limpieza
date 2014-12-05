@@ -196,6 +196,31 @@ class Retiro{
 		
 	}
 	
+	function imprimir(){
+		
+		$conn = new Conexion();
+		
+		$conn->exec("set names latin1");
+		
+		$sql = "SELECT CONCAT(apellido, ', ', nombre) AS agente, elemento, fecha, cantidad, comentario FROM retiro r, agente a WHERE a.id = r.agente  ORDER BY fecha DESC";
+		
+		$consulta = $conn->prepare($sql);
+		
+		$consulta->setFetchMode(PDO::FETCH_ASSOC);
+		
+		try{
+			
+			$consulta->execute();
+			
+			$results = $consulta->fetchall();
+			
+		}catch(PDOException $ex){
+			throw new Exception("Ocurrió un error obteniendo los retiros: ". $ex->getMessage());
+		}
+		
+		return $results;
+	}
+	
 	//INICIO METODOS GETTERS Y SETTERS
 	
 	function getId(){

@@ -81,12 +81,32 @@
 			
 			include "../templates/elemento/modificarRetiro.php";
 		}
-		else{
+		else if($accion == 'imprimirStock'){
 			include_once "../classes/elemento.class.php";
+			include_once '../ezPDF/class.ezpdf.php';
 			
-			$es = Elemento::elementos();
+			$pdf = new Cezpdf('a4','portiat');
+			$pdf->selectFont('../ezPDF/fonts/Helvetica.afm');
 			
-			include "../templates/elemento/stock.php";
+			$dato = Elemento::imprimir();
+			$pdf->ezTable($dato);
+			
+			$pdf->ezStream();
+		}
+		else if($accion == 'imprimirRetiros'){
+			include_once "../classes/retiro.class.php";
+			include_once '../ezPDF/class.ezpdf.php';
+			
+			$pdf = new Cezpdf('a4','portiat');
+			$pdf->selectFont('../ezPDF/fonts/Helvetica.afm');
+			
+			$dato = Retiro::imprimir();
+			$pdf->ezTable($dato);
+			
+			$pdf->ezStream();
+		}
+		else{
+			header("Location: index.php");
 		}
 		
 		die();
