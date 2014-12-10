@@ -2,6 +2,11 @@
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1);
 	
+	if(!isset($_SESSION['usuario'])){
+		 include "../templates/usuario/entrar.php";
+		die();
+	}
+	
 	header('Content-type: text/html; charset=utf-8');
 	
 	if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -17,7 +22,7 @@
 		else if($accion == 'editar'){
 			
 			if(!(isset($_GET['id']) && $_GET['id'] > 0))
-				header("Location: index.php");
+				header("Location: agente.php?action=listado");
 			
 			include_once "../classes/agente.class.php";
 			
@@ -33,14 +38,14 @@
 			include "../templates/agente/listado.php";
 		}
 		else{
-			header("Location: index.php");
+			header("Location: agente.php?action=listado");
 		}
 		
 		die();
 	}
 	
 	if(!isset($_POST['action']))
-		header("Location: index.php");
+		header("Location: agente.php?action=listado");
 	
 	$accion = $_POST['action'];
 	
@@ -99,7 +104,7 @@
 			$mensaje = $ex->getMessage();
 		}
 		
-		header("Location: agente.php?action=editar&estado=". $estado. "&mensaje=". $mensaje);
+		header("Location: agente.php?action=listado&estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}

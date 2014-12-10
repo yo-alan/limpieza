@@ -133,26 +133,29 @@
 		
 		include_once "../classes/usuario.class.php";
 		
-		$estado = "success";
-		$mensaje = "El usuario se eliminó exitosamente.";
-		
-		if("" != $_POST['usuario'] && "" != $_POST['contrasena']){
+		if("" != $_POST['nombre'] && "" != $_POST['contrasena']){
 			
-			include_once "../limpieza/classes/usuario.class.php";
+			include_once "../classes/usuario.class.php";
 			
-			$u = Usuario::usuario($_POST['usuario'], $_POST['contrasena']);
+			$u = Usuario::usuario($_POST['nombre'], $_POST['contrasena']);
 			
-			if($u->getNombre() == "")
-				header("Location: entrar.php");
+			if($u->getNombre() != ""){
+				
+				session_start();
+				
+				$_SESSION['usuario'] = $u->getNombre();
+				$_SESSION['nivel'] = $u->getNivel();
+				
+				header("Location: index.php");
+			}
+			else{
+				
+				$estado = "danger";
+				$mensaje = "El nombre de usuario o la contraseña son incorrectos.";
+				
+				header("Location: usuario.php?action=entrar&estado=". $estado. "&mensaje=". $mensaje);
+			}
 			
-			session_start();
-			
-			$_SESSION['usuario'] = $u->getNombre();
-			$_SESSION['nivel'] = $u->getNivel();
-			
+			die();
 		}
-		
-		header("Location: usuario.php?action=editar&estado=". $estado. "&mensaje=". $mensaje);
-		
-		die();
 	}

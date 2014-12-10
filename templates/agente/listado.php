@@ -18,6 +18,30 @@
 				<?php include_once "../templates/header.php"; ?>
 			</header>
 			<article>
+				<?php if(isset($_GET["estado"])): ?>
+				<div class="container col-md-6 col-md-offset-3">
+					<div class="panel panel-<?php echo $_GET["estado"]; ?>">
+						<div class="panel-heading">
+							<?php if($_GET["estado"] == "success"): ?>
+								<h3 class="panel-title"><strong>Información:</strong></h3>
+							<?php else: ?>
+								<h3 class="panel-title"><strong>Ocurrió un error:</strong></h3>
+							<?php endif; ?>
+						</div>
+						<div class="panel-body">
+							<p class="text-<?php echo $_GET["estado"]; ?> text-center">
+								<?php if($_GET["estado"] == "success"): ?>
+									<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+								<?php else: ?>
+									<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+								<?php endif; ?>
+								
+								<?php echo $_GET["mensaje"]; ?>
+							</p>
+						</div>
+					</div>
+				</div>
+				<?php endif; ?>
 				<div class="container col-md-10 col-md-offset-1 jumbotron">
 					<table class="table table-striped tablaData">
 						<thead>

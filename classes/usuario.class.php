@@ -113,7 +113,7 @@ class Usuario{
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
-				$sql = "INSERT INTO usuario(nombre, contrasena, nivel) VALUES(:nombre, :contrasena, :nivel)";
+				$sql = "INSERT INTO usuario(nombre, contrasena, nivel) VALUES(:nombre, PASSWORD(:contrasena), :nivel)";
 				
 				$stmt = $conn->prepare($sql);
 				
@@ -132,7 +132,7 @@ class Usuario{
 		else{//Si el objeto no es nuevo se hace un UPDATE
 			
 			try{
-				$sql = "UPDATE usuario SET nombre = :nombre, contrasena = :contrasena, nivel = :nivel
+				$sql = "UPDATE usuario SET nombre = :nombre, contrasena = PASSWORD(:contrasena), nivel = :nivel
 						WHERE id = :id";
 				
 				$stmt = $conn->prepare($sql);
@@ -209,10 +209,10 @@ class Usuario{
 		else if(!ctype_alpha($nombre))
 			throw new Exception("El nombre contiene caracteres no permitidos.");
 		
-		if($this->nombre == ucfirst($nombre))
+		if($this->nombre == $nombre)
 			return;
 		
-		$this->nombre = ucfirst($nombre);
+		$this->nombre = $nombre;
 		$this->cambios = true;
 	}
 	
