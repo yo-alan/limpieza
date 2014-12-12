@@ -5,7 +5,7 @@
 	session_start();
 	
 	if(!isset($_SESSION['usuario'])){
-		include "../templates/usuario/entrar.php";
+		header("Location: usuario.php?action=entrar");
 		die();
 	}
 	

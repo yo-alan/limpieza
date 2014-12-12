@@ -19,12 +19,10 @@
 			</header>
 			<article>
 				<div class="container col-md-10 col-md-offset-1">
-					<div class="text-left">
+					<div class="text-center">
 						<h2>Stock de elementos</h2>
 					</div>
-					<div class="text-right">
-						<a class="btn btn-primary" href="elemento.php?action=imprimirStock">Imprimir Stock</a>
-					</div>
+					<a class="btn btn-primary" href="elemento.php?action=imprimirStock">Imprimir Stock</a>
 					<table class="table table-striped table-bordered tablaData">
 						<thead>
 							<tr>

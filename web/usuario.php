@@ -11,25 +11,47 @@
 		if(isset($_GET['action']))
 			$accion = $_GET['action'];
 		
-		if($accion == 'agregar'){
-			include "../templates/usuario/agregar.php";
-		}
-		else if($accion == 'editar'){
-			
-			if(!(isset($_GET['id']) && $_GET['id'] > 0))
-				header("Location: usuario.php");
-			
-			include_once "../classes/usuario.class.php";
-			
-			$u = Usuario::usuario($_GET['id']);
-			
-			include "../templates/usuario/editar.php";
-		}
-		else if($accion == 'entrar'){
+		if($accion == 'entrar'){
 			include "../templates/usuario/entrar.php";
 		}
 		else{
-			header("Location: index.php");
+			
+			session_start();
+			
+			if(!isset($_SESSION['usuario'])){
+				header("Location: usuario.php?action=entrar");
+				die();
+			}
+			
+			if($_SESSION['nivel'] != "Administrador"){
+				header("Location: index.php");
+				die();
+			}
+			
+			if($accion == 'agregar'){
+				include "../templates/usuario/agregar.php";
+			}
+			else if($accion == 'editar'){
+				
+				if(!(isset($_GET['id']) && $_GET['id'] > 0))
+					header("Location: usuario.php");
+				
+				include_once "../classes/usuario.class.php";
+				
+				$u = Usuario::usuario($id=$_GET['id']);
+				
+				include "../templates/usuario/editar.php";
+			}
+			else if($accion == 'listado'){
+				include_once "../classes/usuario.class.php";
+				
+				$us = Usuario::usuarios();
+				
+				include "../templates/usuario/listado.php";
+			}
+			else{
+				header("Location: usuario.php?action=listado");
+			}
 		}
 		
 		die();
@@ -88,7 +110,7 @@
 		
 		try{
 			
-			$u = Usuario::usuario($_POST['id']);
+			$u = Usuario::usuario($id=$_POST['id']);
 			
 			$u->setNombre($_POST['nombre']);
 			$u->setContrasena($_POST['contrasena']);
@@ -115,7 +137,7 @@
 		
 		try{
 			
-			$u = Usuario::usuario($_POST['id']);
+			$u = Usuario::usuario($id=$_POST['id']);
 			
 			$u->eliminar();
 			
@@ -137,7 +159,7 @@
 			
 			include_once "../classes/usuario.class.php";
 			
-			$u = Usuario::usuario($_POST['nombre'], $_POST['contrasena']);
+			$u = Usuario::usuario($nombre=$_POST['nombre'], $contrasena=$_POST['contrasena']);
 			
 			if($u->getNombre() != ""){
 				

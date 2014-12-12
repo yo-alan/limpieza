@@ -10,42 +10,7 @@
 	</head>
 	<body>
 		<header>
-			<div class="container">
-				<nav class="navbar navbar-default" role="navigation">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<a class="navbar-brand" href="index.php">Limpieza</a>
-						</div>
-						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingreso <span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="elemento.php?action=ingreso">Registrar ingreso</a></li>
-										<li><a href="elemento.php?action=historialIngreso">Historial</a></li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Retiro <span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="elemento.php?action=retiro">Registrar retiro</a></li>
-										<li><a href="elemento.php?action=historialRetiro">Historial</a></li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Agentes <span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="agente.php?action=agregar">Agregar</a></li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="elemento.php" class="dropdown-toggle" data-hover="dropdown">Ver Stock</a>
-								</li>
-							</ul>
-						</div><!-- /.navbar-collapse -->
-					</div><!-- /.container-fluid -->
-				</nav>
-			</div>
+			<?php include_once "../templates/header.php"; ?>
 		</header>
 		<article>
 			<?php if(isset($_GET["estado"])): ?>
@@ -68,21 +33,35 @@
 			<?php endif; ?>
 			<div class="container col-md-6 col-md-offset-3 jumbotron">
 				<div class="text-center">
-					<h2>Editar agente</h2>
+					<h2>Editar usuario</h2>
 				</div>
-				<form role="form" class="form-horizontal" method="POST" action="agente.php">
+				<form role="form" class="form-horizontal" method="POST" action="usuario.php">
 					<input type="hidden" name="action" value="editar">
-					<input type="hidden" name="id" value="<?php echo $a->getId() ?>" >
+					<input type="hidden" name="id" value="<?php echo $u->getId() ?>" >
 					<div class="form-group">
-						<label for="nombre" class="col-sm-3 control-label">Nombre: </label>
+						<label for="nombre" class="col-sm-3 control-label">Nuevo nombre: </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" name="nombre" value="<?php echo $a->getNombre() ?>" required>
+							<input type="text" class="form-control" name="nombre" value="<?php echo $u->getNombre() ?>" required>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="apellido" class="col-sm-3 control-label">Apellido: </label>
+						<label for="contrasena" class="col-sm-3 control-label">Nueva contraseña: </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" name="apellido" value="<?php echo $a->getApellido() ?>" required>
+							<input type="password" class="form-control" name="contrasena" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="nivel" class="col-sm-3 control-label">Nivel: </label>
+						<div class="col-sm-7">
+							<select class="form-control" name="nivel">
+								<?php foreach(array("Normal", "Administrador") as $n): ?>
+									<?php if($u->getNivel() == $n): ?>
+										<option value="<?php echo $n ?>" selected="selected"><?php echo $n ?></option>
+									<?php else: ?>
+										<option value="<?php echo $n ?>"><?php echo $n ?></option>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							</select>
 						</div>
 					</div>
 					<div class="form-group">

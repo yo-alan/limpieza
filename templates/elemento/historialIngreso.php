@@ -18,11 +18,11 @@
 				<?php include_once "../templates/header.php"; ?>
 			</header>
 			<article>
-				<div class="container col-md-10 col-md-offset-1 jumbotron">
+				<div class="container col-md-10 col-md-offset-1">
 					<div class="text-center">
 						<h2>Historial de ingresos</h2>
 					</div>
-					<table class="table table-striped tablaData">
+					<table class="table table-striped table-bordered tablaData">
 						<thead>
 							<tr>
 								<th>Fecha</th>

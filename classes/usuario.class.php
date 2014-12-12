@@ -22,21 +22,28 @@ class Usuario{
 	
 	//INICIO METODOS ESTATICOS
 	
-	static function usuario($nombre, $contrasena){
+	static function usuario($id=0, $nombre="", $contrasena=""){
 		//Metodo estatico que retorna un usuario que posea el $id
 		
 		$u = new Usuario();
 		
 		$conn = new Conexion();
 		
-		$sql = "SELECT * FROM usuario WHERE nombre = :nombre AND contrasena = PASSWORD(:contrasena)";
+		if($id != 0)
+			$sql = "SELECT * FROM usuario WHERE id = :id";
+		else
+			$sql = "SELECT * FROM usuario WHERE nombre = :nombre AND contrasena = PASSWORD(:contrasena)";
 		
 		$consulta = $conn->prepare($sql);
 		
 		$consulta->setFetchMode(PDO::FETCH_ASSOC);
 		
-		$consulta->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-		$consulta->bindParam(':contrasena', $contrasena, PDO::PARAM_STR);
+		if($id != 0)
+			$consulta->bindParam(':id', $id, PDO::PARAM_INT);
+		else{
+			$consulta->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+			$consulta->bindParam(':contrasena', $contrasena, PDO::PARAM_STR);
+		}
 		
 		try{
 			
@@ -65,7 +72,7 @@ class Usuario{
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT nombre, contrasena FROM usuario ORDER BY nombre';
+		$sql = 'SELECT id FROM usuario ORDER BY nombre';
 		
 		$consulta = $conn->prepare($sql);
 		
@@ -79,7 +86,7 @@ class Usuario{
 			
 			foreach($results as $r){
 				
-				$u = Usuario::usuario($r['nombre'], $r['contrasena']);
+				$u = Usuario::usuario($r['id']);
 				
 				array_push($us, $u);
 			}
