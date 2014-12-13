@@ -160,7 +160,8 @@
 			include_once "../classes/usuario.class.php";
 			
 			$u = Usuario::usuario($nombre=$_POST['nombre'], $contrasena=$_POST['contrasena']);
-			
+			var_dump($u);
+			die();
 			if($u->getNombre() != ""){
 				
 				session_start();
