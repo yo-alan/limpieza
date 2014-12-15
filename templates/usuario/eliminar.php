@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Editar un agente</title>
+		<title>Limpieza | Editar un usuario</title>
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">

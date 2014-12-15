@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Listado de agentes</title>
+		<title>Limpieza | Listado de usuarios</title>
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -36,30 +36,37 @@
 					</div>
 				</div>
 				<?php endif; ?>
-				<table class="table table-striped tablaData">
-					<thead>
-						<tr>
-							<th>Usuario</th>
-							<th>Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach($us as $u):?>
-						<tr>
-							<td><?php echo $u->getNombre() ?></td>
-							<td>
-								<div class="btn btn-group">
-									<a class="btn btn-default " title="Editar" href="?action=editar&id=<?php echo $u->getId() ?>">
-										<i class="glyphicon glyphicon-pencil"></i>
-									</a>
-									<a class="btn btn-danger" title="Eliminar" href="?action=eliminar&id=<?php echo $u->getId() ?>">
-										<i class="glyphicon glyphicon-minus"></i>
-									</a>
-								</div>
-							</td>
-						<?php endforeach;?>
-					</tbody>
-				</table>
+				<div class="container col-md-10 col-md-offset-1">
+					<div class="text-center">
+						<h2>Usuarios</h2>
+					</div>
+					<table class="table table-striped table-bordered tablaData">
+						<thead>
+							<tr>
+								<th>Usuario</th>
+								<th>Nivel</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($us as $u):?>
+							<tr>
+								<td><?php echo $u->getNombre() ?></td>
+								<td><?php echo $u->getNivel() ?></td>
+								<td>
+									<div class="btn btn-group">
+										<a class="btn btn-default " title="Editar" href="?action=editar&id=<?php echo $u->getId() ?>">
+											<i class="glyphicon glyphicon-pencil"></i>
+										</a>
+										<a class="btn btn-danger" title="Eliminar" href="?action=eliminar&id=<?php echo $u->getId() ?>">
+											<i class="glyphicon glyphicon-minus"></i>
+										</a>
+									</div>
+								</td>
+							<?php endforeach;?>
+						</tbody>
+					</table>
+				</div>
 			</article>
 			<footer>
 				<div class="container">

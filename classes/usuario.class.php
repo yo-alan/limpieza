@@ -139,13 +139,20 @@ class Usuario{
 		else{//Si el objeto no es nuevo se hace un UPDATE
 			
 			try{
-				$sql = "UPDATE usuario SET nombre = :nombre, contrasena = PASSWORD(:contrasena), nivel = :nivel
-						WHERE id = :id";
+				if(substr($this->contrasena, 0, 1 ) != "*")
+					$sql = "UPDATE usuario SET nombre = :nombre, contrasena = PASSWORD(:contrasena), nivel = :nivel
+							WHERE id = :id";
+				else
+					$sql = "UPDATE usuario SET nombre = :nombre, nivel = :nivel
+							WHERE id = :id";
 				
 				$stmt = $conn->prepare($sql);
 				
 				$stmt->bindParam(':nombre', $this->nombre, PDO::PARAM_STR);
-				$stmt->bindParam(':contrasena', $this->contrasena, PDO::PARAM_STR);
+				
+				if(substr($this->contrasena, 0, 1 ) != "*")
+					$stmt->bindParam(':contrasena', $this->contrasena, PDO::PARAM_STR);
+				
 				$stmt->bindParam(':nivel', $this->nivel, PDO::PARAM_STR);
 				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 				

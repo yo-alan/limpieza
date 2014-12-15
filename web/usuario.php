@@ -134,7 +134,10 @@
 			$u = Usuario::usuario($id=$_POST['id']);
 			
 			$u->setNombre($_POST['nombre']);
-			$u->setContrasena($_POST['contrasena']);
+			
+			if($_POST['contrasena'] != "......")
+				$u->setContrasena($_POST['contrasena']);
+			
 			$u->setNivel($_POST['nivel']);
 			
 			$u->guardar();

@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Limpieza | Editar un agente</title>
+		<title>Limpieza | Editar un usuario</title>
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<link href="css/default.css" rel="stylesheet">
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -40,20 +40,20 @@
 						<input type="hidden" name="action" value="editar">
 						<input type="hidden" name="id" value="<?php echo $u->getId() ?>" >
 						<div class="form-group">
-							<label for="nombre" class="col-sm-3 control-label">Nuevo nombre: </label>
-							<div class="col-sm-7">
+							<label for="nombre" class="col-sm-4 control-label">Nuevo nombre: </label>
+							<div class="col-sm-6">
 								<input type="text" class="form-control" name="nombre" value="<?php echo $u->getNombre() ?>" required>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="contrasena" class="col-sm-3 control-label">Nueva contraseña: </label>
-							<div class="col-sm-7">
-								<input type="password" class="form-control" name="contrasena" required>
+							<label for="contrasena" class="col-sm-4 control-label">Nueva contraseña: </label>
+							<div class="col-sm-6">
+								<input type="password" class="form-control" name="contrasena" value="......" required>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="nivel" class="col-sm-3 control-label">Nivel: </label>
-							<div class="col-sm-7">
+							<label for="nivel" class="col-sm-4 control-label">Nivel: </label>
+							<div class="col-sm-6">
 								<select class="form-control" name="nivel">
 									<?php foreach(array("Normal", "Administrador") as $n): ?>
 										<?php if($u->getNivel() == $n): ?>
@@ -66,7 +66,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-4 col-md-offset-8">
+							<div class="col-md-5 col-md-offset-7">
 								<button type='submit' class='btn btn-default'>Guardar</button>
 							</div>
 						</div>

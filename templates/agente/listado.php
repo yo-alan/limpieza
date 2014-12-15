@@ -43,7 +43,10 @@
 				</div>
 				<?php endif; ?>
 				<div class="container col-md-10 col-md-offset-1 jumbotron">
-					<table class="table table-striped tablaData">
+					<div class="text-center">
+						<h2>Agentes</h2>
+					</div>
+					<table class="table table-striped table-bordered tablaData">
 						<thead>
 							<tr>
 								<th>Agente</th>
