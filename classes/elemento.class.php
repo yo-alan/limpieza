@@ -156,11 +156,13 @@ class Elemento{
 	function eliminar(){
 		//Metodo de clase que elimina un elemento de la base
 		
-		if(!$this->nuevo)
+		if($this->nuevo)
 			return;
 		
 		if($this->id == 0)
 			return;
+		
+		$conn = new Conexion();
 		
 		try{
 			$sql = "DELETE FROM elemento WHERE id = :id";

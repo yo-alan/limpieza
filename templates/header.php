@@ -37,12 +37,16 @@
 					</li>
 					<?php endif; ?>
 					<li class="dropdown">
-						<a href="index.php?action=acerca_de" class="dropdown-hover" data-hover="dropdown">Acerca de...</a>
+						<a href="index.php?action=acerca_de" class="dropdown" data-hover="dropdown">Acerca de...</a>
 					</li>
 				</ul>
-				<?php if(!isset($_SESSION['usuario'])): ?>
-						<a href="usuario.php?action=salir">Cerrar sesión</a>
-				<?php endif; ?>
+				<ul class="nav navbar-nav navbar-right">
+					<?php if(isset($_SESSION['usuario'])): ?>
+						<li class="dropdown">
+							<a href="usuario.php?action=salir" class="dropdown">Cerrar sesión</a>
+						</li>
+					<?php endif; ?>
+				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>

@@ -11,12 +11,21 @@
 		if(isset($_GET['action']))
 			$accion = $_GET['action'];
 		
+		session_start();
+		
 		if($accion == 'entrar'){
+			
+			if(isset($_SESSION["usuario"]))
+				header("Location: index.php");
+			
 			include "../templates/usuario/entrar.php";
+		}else if($accion == 'salir'){
+				
+			session_destroy();
+			
+			header("Location: usuario.php?action=entrar");
 		}
 		else{
-			
-			session_start();
 			
 			if(!isset($_SESSION['usuario'])){
 				header("Location: usuario.php?action=entrar");
@@ -42,6 +51,17 @@
 				
 				include "../templates/usuario/editar.php";
 			}
+			else if($accion == 'eliminar'){
+				
+				if(!(isset($_GET['id']) && $_GET['id'] > 0))
+					header("Location: usuario.php");
+				
+				include_once "../classes/usuario.class.php";
+				
+				$u = Usuario::usuario($id=$_GET['id']);
+				
+				include "../templates/usuario/eliminar.php";
+			}
 			else if($accion == 'listado'){
 				include_once "../classes/usuario.class.php";
 				
@@ -49,6 +69,7 @@
 				
 				include "../templates/usuario/listado.php";
 			}
+			
 			else{
 				header("Location: usuario.php?action=listado");
 			}
@@ -123,7 +144,7 @@
 			$mensaje = $ex->getMessage();
 		}
 		
-		header("Location: usuario.php?action=editar&estado=". $estado. "&mensaje=". $mensaje);
+		header("Location: usuario.php?action=listado&estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}
@@ -146,7 +167,7 @@
 			$mensaje = $ex->getMessage();
 		}
 		
-		header("Location: usuario.php?action=editar&estado=". $estado. "&mensaje=". $mensaje);
+		header("Location: usuario.php?action=listado&estado=". $estado. "&mensaje=". $mensaje);
 		
 		die();
 	}
@@ -159,9 +180,8 @@
 			
 			include_once "../classes/usuario.class.php";
 			
-			$u = Usuario::usuario($nombre=$_POST['nombre'], $contrasena=$_POST['contrasena']);
-			var_dump($u);
-			die();
+			$u = Usuario::usuario(0, $_POST['nombre'], $_POST['contrasena']);
+			
 			if($u->getNombre() != ""){
 				
 				session_start();

@@ -13,11 +13,29 @@
         <script src="js/listadosTabla.js"></script>
 	</head>
 	<body>
-		<header>
-			<?php include_once "../templates/header.php"; ?>
-		</header>
-		<article>
-			<div class="container col-md-10 col-md-offset-1 jumbotron">
+		<div class="container jumbotron">
+			<header>
+				<?php include_once "../templates/header.php"; ?>
+			</header>
+			<article>
+				<?php if(isset($_GET["estado"])): ?>
+				<div class="container col-md-6 col-md-offset-3">
+					<div class="panel panel-<?php echo $_GET["estado"]; ?>">
+						<div class="panel-heading">
+							<?php if($_GET["estado"] == "success"): ?>
+								<h3 class="panel-title"><strong>Información:</strong></h3>
+							<?php else: ?>
+								<h3 class="panel-title"><strong>Ocurrió un error:</strong></h3>
+							<?php endif; ?>
+						</div>
+						<div class="panel-body">
+							<p class="text-<?php echo $_GET["estado"]; ?> text-center">
+								<?php echo $_GET["mensaje"]; ?>
+							</p>
+						</div>
+					</div>
+				</div>
+				<?php endif; ?>
 				<table class="table table-striped tablaData">
 					<thead>
 						<tr>
@@ -34,7 +52,7 @@
 									<a class="btn btn-default " title="Editar" href="?action=editar&id=<?php echo $u->getId() ?>">
 										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
-									<a class="btn btn-danger disabled" title="Eliminar" href="?action=eliminar&id=<?php echo $u->getId() ?>">
+									<a class="btn btn-danger" title="Eliminar" href="?action=eliminar&id=<?php echo $u->getId() ?>">
 										<i class="glyphicon glyphicon-minus"></i>
 									</a>
 								</div>
@@ -42,12 +60,12 @@
 						<?php endforeach;?>
 					</tbody>
 				</table>
-			</div>
-		</article>
-		<footer>
-			<div class="container">
-				
-			</div>
-		</footer>
+			</article>
+			<footer>
+				<div class="container">
+					
+				</div>
+			</footer>
+		</div>
 	</body>
 </html>

@@ -44,20 +44,13 @@ class Usuario{
 			$consulta->bindParam(':nombre', $nombre, PDO::PARAM_STR);
 			$consulta->bindParam(':contrasena', $contrasena, PDO::PARAM_STR);
 		}
-		//~ 
-		//~ echo $_POST['nombre']. "<br>";
-		//~ echo $_POST['contrasena']. "<br>";
-		//~ die();
-		//~ 
+		
 		try{
 			
 			$consulta->execute();
 			
 			$results = $consulta->fetch();
-			//~ 
-			//~ var_dump($results);
-			//~ die();
-			//~ 
+			
 			$u->id = $results['id'];
 			$u->nombre = $results['nombre'];
 			$u->contrasena = $results['contrasena'];
@@ -167,11 +160,13 @@ class Usuario{
 	function eliminar(){
 		//Metodo de clase que elimina un usuario de la base
 		
-		if(!$this->nuevo)
+		if($this->nuevo)
 			return;
 		
 		if($this->id == 0)
 			return;
+		
+		$conn = new Conexion();
 		
 		try{
 			$sql = "DELETE FROM usuario WHERE id = :id";
