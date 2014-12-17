@@ -181,6 +181,8 @@ class Elemento{
 	
 	function imprimir(){
 		
+		$t = array();
+		
 		$conn = new Conexion();
 		
 		$conn->exec("set names latin1");
@@ -197,11 +199,14 @@ class Elemento{
 			
 			$results = $consulta->fetchall();
 			
+			foreach($results as $r){
+				$t[] = array($r['nombre'], $r['unidad'], $r['stock']);
+			}
 		}catch(PDOException $ex){
 			throw new Exception("Ocurrió un error obteniendo los elementos: ". $ex->getMessage());
 		}
 		
-		return $results;
+		return $t;
 	}
 	
 	//INICIO METODOS GETTERS Y SETTERS

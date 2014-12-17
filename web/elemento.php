@@ -89,28 +89,106 @@
 			include "../templates/elemento/modificarRetiro.php";
 		}
 		else if($accion == 'imprimirStock'){
-			include_once "../classes/elemento.class.php";
-			include_once '../ezPDF/class.ezpdf.php';
 			
-			$pdf = new Cezpdf('a4','portiat');
-			$pdf->selectFont('../ezPDF/fonts/Helvetica.afm');
+			require_once '../classes/fpdf.php';
+			require_once '../classes/elemento.class.php';
 			
-			$dato = Elemento::imprimir();
-			$pdf->ezTable($dato);
+			class PDF extends FPDF{
+				
+				// Better table
+				function ImprovedTable($header, $data){
+					// Column widths
+					$w = array(70, 45, 30);
+					// Header
+					for($i=0;$i<count($header);$i++)
+						$this->Cell($w[$i],7,$header[$i],1,0,'C');
+					$this->Ln();
+					$this->SetFont('Arial','',10);
+					// Data
+					foreach($data as $row){
+						$this->Cell($w[0],6,$row[0],1);
+						$this->Cell($w[1],6,$row[1],1);
+						$this->Cell($w[2],6,number_format($row[2]),1,0,'R');
+						$this->Ln();
+					}
+					// Closing line
+					$this->Cell(array_sum($w),0,'','T');
+				}
+				
+				function Footer(){
+					// Position at 1.5 cm from bottom
+					$this->SetY(-15);
+					// Arial italic 8
+					$this->SetFont('Arial','I',12);
+					// Page number
+					$fecha = getDate();
+					$fecha = date("Y-m-d", strtotime($fecha["year"]. "-". $fecha["mon"]. "-". $fecha["mday"]));
+					$this->Cell(0,10,utf8_decode('Fecha de emisión: '. $fecha. "."),0,0,'C');
+				}
+			}
+
+			$pdf = new PDF();
+			// Column headings
+			$header = array('Elemento', 'Unidad de medida', 'Cantidad');
+			// Data loading
+			$data = Elemento::imprimir();
+			$pdf->SetFont('Arial','B',12);
+			$pdf->AddPage();
+			$pdf->ImprovedTable($header,$data);
+			$pdf->Output();
 			
-			$pdf->ezStream();
 		}
 		else if($accion == 'imprimirRetiros'){
-			include_once "../classes/retiro.class.php";
-			include_once '../ezPDF/class.ezpdf.php';
 			
-			$pdf = new Cezpdf('a4','portiat');
-			$pdf->selectFont('../ezPDF/fonts/Helvetica.afm');
+			require_once '../classes/fpdf.php';
+			require_once '../classes/retiro.class.php';
 			
-			$dato = Retiro::imprimir();
-			$pdf->ezTable($dato);
-			
-			$pdf->ezStream();
+			class PDF extends FPDF{
+				
+				// Better table
+				function ImprovedTable($header, $data){
+					// Column widths
+					$w = array(35, 65, 20, 20, 50);
+					// Header
+					for($i=0;$i<count($header);$i++)
+						$this->Cell($w[$i],7,$header[$i],1,0,'C');
+					$this->Ln();
+					$this->SetFont('Arial','',10);
+					// Data
+					foreach($data as $row){
+						$this->Cell($w[0],6,$row[0],1);
+						$this->Cell($w[1],6,$row[1],1);
+						$this->Cell($w[2],6,$row[2],1);
+						$this->Cell($w[3],6,number_format($row[3]),1,0,'R');
+						$this->Cell($w[4],6,$row[4],1);
+						$this->Ln();
+					}
+					// Closing line
+					$this->Cell(array_sum($w),0,'','T');
+				}
+				
+				function Footer(){
+					// Position at 1.5 cm from bottom
+					$this->SetY(-15);
+					// Arial italic 8
+					$this->SetFont('Arial','I',12);
+					// Page number
+					$fecha = getDate();
+					$fecha = date("Y-m-d", strtotime($fecha["year"]. "-". $fecha["mon"]. "-". $fecha["mday"]));
+					$this->Cell(0,10,utf8_decode('Fecha de emisión: '. $fecha. "."),0,0,'C');
+				}
+			}
+
+			$pdf = new PDF();
+			// Column headings
+			$header = array('Agente', 'Elemento', 'Fecha', 'Cantidad', 'Comentario');
+			// Data loading
+			$data = Retiro::imprimir();
+			$pdf->SetFont('Arial','B',12);
+			$pdf->AddPage();
+			$pdf->ImprovedTable($header,$data);
+			$pdf->Output();
+
 		}
 		else{
 			header("Location: index.php");

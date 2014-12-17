@@ -195,10 +195,11 @@ class Retiro{
 		} catch(PDOException $ex){
 			throw new Exception("No pude eliminarme de la base: ". $ex->getMessage());
 		}
-		
 	}
 	
 	function imprimir(){
+		
+		$t = array();
 		
 		$conn = new Conexion();
 		
@@ -216,11 +217,14 @@ class Retiro{
 			
 			$results = $consulta->fetchall();
 			
+			foreach($results as $r){
+				$t[] = array($r['agente'], $r['elemento'], $r['fecha'], $r['cantidad'], $r['comentario']);
+			}
 		}catch(PDOException $ex){
 			throw new Exception("Ocurrió un error obteniendo los retiros: ". $ex->getMessage());
 		}
 		
-		return $results;
+		return $t;
 	}
 	
 	//INICIO METODOS GETTERS Y SETTERS
