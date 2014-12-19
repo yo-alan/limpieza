@@ -8,6 +8,7 @@ Es capaz de llevar un stock de los productos, manejando los ingresos y egresos r
 ## Usuarios:
 **Normal:**
 Es aquel que tiene permiso para ingresar y retirar elementos.
+
 **Administrador:**
 Tiene permisos totales sobre la administración de la aplicación, es capaz de agregar/modificar/eliminar usuarios y agentes.
 
