@@ -72,7 +72,7 @@ class Retiro{
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT id FROM retiro';
+		$sql = 'SELECT id FROM retiro ORDER BY fecha DESC';
 		
 		$consulta = $conn->prepare($sql);
 		

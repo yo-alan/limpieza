@@ -71,7 +71,7 @@ class Ingreso{
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT id FROM ingreso';
+		$sql = 'SELECT id FROM ingreso ORDER BY fecha DESC';
 		
 		$consulta = $conn->prepare($sql);
 		
