@@ -151,6 +151,17 @@ class Retiro{
 		else{//Si el objeto no es nuevo se hace un UPDATE
 			
 			try{
+				
+				$sql = "UPDATE elemento
+						INNER JOIN retiro ON retiro.id = :id AND retiro.elemento = elemento.nombre
+						SET elemento.stock = elemento.stock + retiro.cantidad";
+				
+				$stmt = $conn->prepare($sql);
+				
+				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+				
+				$stmt->execute();
+				
 				$sql = "UPDATE retiro SET agente = :agente, elemento = :elemento, fecha = :fecha, cantidad = :cantidad, comentario = :comentario
 						WHERE id = :id";
 				
@@ -162,6 +173,12 @@ class Retiro{
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
 				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+				
+				$this->elemento = Elemento::elemento($this->elemento->getNombre());
+				
+				$this->elemento->setStock($this->elemento->getStock() - $this->cantidad);
+				
+				$this->elemento->guardar();
 				
 				$stmt->execute();
 				
@@ -184,6 +201,17 @@ class Retiro{
 		$conn = new Conexion();
 		
 		try{
+			
+			$sql = "UPDATE elemento
+					INNER JOIN retiro ON retiro.id = :id AND retiro.elemento = elemento.nombre
+					SET elemento.stock = elemento.stock + retiro.cantidad";
+			
+			$stmt = $conn->prepare($sql);
+			
+			$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+			
+			$stmt->execute();
+			
 			$sql = "DELETE FROM retiro WHERE id = :id";
 			
 			$stmt = $conn->prepare($sql);

@@ -119,8 +119,6 @@ class Ingreso{
 		
 		$conn = new Conexion();
 		
-		$conn->beginTransaction();
-		
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
@@ -143,11 +141,7 @@ class Ingreso{
 				
 				$e->guardar();
 				
-				$conn->commit();
-				
 			} catch(PDOException $ex){
-				
-				$conn->rollBack();
 				
 				throw new Exception("No me pude guardar como ingreso: ". $ex->getMessage());
 			}
@@ -156,6 +150,17 @@ class Ingreso{
 		else{//Si el objeto no es nuevo se hace un UPDATE
 			
 			try{
+				
+				$sql = "UPDATE elemento
+						INNER JOIN ingreso ON ingreso.id = :id AND ingreso.elemento = elemento.nombre
+						SET elemento.stock = elemento.stock - ingreso.cantidad";
+				
+				$stmt = $conn->prepare($sql);
+				
+				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+				
+				$stmt->execute();
+				
 				$sql = "UPDATE ingreso SET elemento = :elemento, cantidad = :cantidad, fecha = :fecha, expediente = :expediente, comentario = :comentario
 						WHERE id = :id";
 				
@@ -168,13 +173,15 @@ class Ingreso{
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
 				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 				
+				$this->elemento = Elemento::elemento($this->elemento->getNombre());
+				
+				$this->elemento->setStock($this->elemento->getStock() + $this->cantidad);
+				
+				$this->elemento->guardar();
+				
 				$stmt->execute();
 				
-				$conn->commit();
-				
 			} catch(PDOException $ex){
-				
-				$conn->rollBack();
 				
 				throw new Exception("Ocurrió un error mientras me actualizaba: ". $ex->getMessage());
 			}
@@ -193,6 +200,17 @@ class Ingreso{
 		$conn = new Conexion();
 		
 		try{
+			
+			$sql = "UPDATE elemento
+					INNER JOIN ingreso ON ingreso.id = :id AND ingreso.elemento = elemento.nombre
+					SET elemento.stock = elemento.stock - ingreso.cantidad";
+			
+			$stmt = $conn->prepare($sql);
+			
+			$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+			
+			$stmt->execute();
+			
 			$sql = "DELETE FROM ingreso WHERE id = :id";
 			
 			$stmt = $conn->prepare($sql);
