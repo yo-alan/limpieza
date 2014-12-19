@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<?php endif; ?>
-				<div class="container col-md-10 col-md-offset-1 jumbotron">
+				<div class="container col-md-10 col-md-offset-1">
 					<div class="text-center">
 						<h2>Agentes</h2>
 					</div>

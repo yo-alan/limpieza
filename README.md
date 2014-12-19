@@ -1,5 +1,5 @@
 Limpieza - Sistema de seguimiento de stock
-==========================================
+========
 
 ## Descripción:
 Es una aplicación web para la administración de los productos de limpieza en la Secretaria de Cultura.

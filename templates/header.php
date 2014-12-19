@@ -36,9 +36,6 @@
 						</ul>
 					</li>
 					<?php endif; ?>
-					<li class="dropdown">
-						<a href="index.php?action=acerca_de" class="dropdown" data-hover="dropdown">Acerca de...</a>
-					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php if(isset($_SESSION['usuario'])): ?>
