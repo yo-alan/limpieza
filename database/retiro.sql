@@ -6,7 +6,9 @@ CREATE TABLE retiro(
 	agente int NOT NULL,
 	elemento varchar(100) NOT NULL,
 	fecha date NOT NULL,
+	fecha_hora datetime NOT NULL,
 	cantidad int NOT NULL,
+	usuario int NOT NULL,
 	comentario text,
 	
 	CONSTRAINT pk_retiro
@@ -18,5 +20,9 @@ CREATE TABLE retiro(
 	
 	CONSTRAINT fk_elemento_retiro
 		FOREIGN KEY (elemento)
-		REFERENCES elemento (nombre)
+		REFERENCES elemento (nombre),
+	
+	CONSTRAINT fk_usuario_retiro
+		FOREIGN KEY (usuario)
+		REFERENCES usuario (id)
 );

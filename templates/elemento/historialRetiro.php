@@ -30,6 +30,7 @@
 								<th>Agente</th>
 								<th>Elemento</th>
 								<th>Cantidad</th>
+								<th>Usuario</th>
 								<th>Comentario</th>
 								<th>Acciones</th>
 							</tr>
@@ -41,6 +42,7 @@
 								<td><?php echo $r->getAgente()->getApellido(). ", ". $r->getAgente()->getNombre() ?></td>
 								<td><?php echo $r->getElemento()->getNombre() ?></td>
 								<td><?php echo $r->getCantidad() ?></td>
+								<td><?php echo $r->getUsuario()->getNombre() ?></td>
 								<td><?php echo $r->getComentario() ?></td>
 								<td>
 									<div class="btn btn-group">

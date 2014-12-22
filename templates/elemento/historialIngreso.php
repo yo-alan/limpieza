@@ -29,6 +29,7 @@
 								<th>Elemento</th>
 								<th>Cantidad</th>
 								<th>Expediente</th>
+								<th>Usuario</th>
 								<th>Comentario</th>
 								<th>Acciones</th>
 							</tr>
@@ -40,6 +41,7 @@
 								<td><?php echo $i->getElemento()->getNombre() ?></td>
 								<td><?php echo $i->getCantidad() ?></td>
 								<td><?php echo $i->getExpediente() ?></td>
+								<td><?php echo $i->getUsuario()->getNombre() ?></td>
 								<td><?php echo $i->getComentario() ?></td>
 								<td>
 									<div class="btn btn-group">

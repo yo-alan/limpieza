@@ -3,6 +3,7 @@
 require_once "conexion.class.php";
 require_once "agente.class.php";
 require_once "elemento.class.php";
+require_once "usuario.class.php";
 
 class Retiro{
 	
@@ -12,7 +13,9 @@ class Retiro{
 	private $agente;
 	private $elemento;
 	private $fecha;
+	private $fecha_hora;
 	private $cantidad;
+	private $usuario;
 	private $comentario;
 	
 	function __construct(){
@@ -22,7 +25,9 @@ class Retiro{
 		$this->agente = null;
 		$this->elemento = null;
 		$this->fecha = "";
+		$this->fecha_hora = "";
 		$this->cantidad = 0;
+		$this->usuario = null;
 		$this->comentario = "";
 	}
 	
@@ -53,7 +58,9 @@ class Retiro{
 			$r->agente = Agente::agente($results['agente']);
 			$r->elemento = Elemento::elemento($results['elemento']);
 			$r->fecha = $results['fecha'];
+			$r->fecha_hora = $results['fecha_hora'];
 			$r->cantidad = $results['cantidad'];
+			$r->usuario = Usuario::usuario($id=$results['usuario']);
 			$r->comentario = $results['comentario'];
 			$r->nuevo = false;
 			$r->cambios = false;
@@ -72,7 +79,7 @@ class Retiro{
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT id FROM retiro ORDER BY fecha DESC';
+		$sql = 'SELECT id FROM retiro ORDER BY fecha_hora DESC';
 		
 		$consulta = $conn->prepare($sql);
 		
@@ -115,23 +122,31 @@ class Retiro{
 		if($this->fecha == "")
 			throw new Exception("La fecha no es válida.");
 		
+		if($this->fecha_hora == "")
+			throw new Exception("La fecha y la hora no son válidas.");
+		
 		if($this->cantidad == "")
 			throw new Exception("La cantidad no es válida.");
+		
+		if($this->usuario == null)
+			throw new Exception("El usuario no es válido.");
 		
 		$conn = new Conexion();
 		
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
-				$sql = "INSERT INTO retiro(agente, elemento, fecha, cantidad, comentario)
-						VALUES(:agente, :elemento, :fecha, :cantidad, :comentario)";
+				$sql = "INSERT INTO retiro(agente, elemento, fecha, fecha_hora, cantidad, usuario, comentario)
+						VALUES(:agente, :elemento, :fecha, :fecha_hora, :cantidad, :usuario, :comentario)";
 				
 				$stmt = $conn->prepare($sql);
 				
 				$stmt->bindParam(':agente', $this->agente->getId(), PDO::PARAM_INT);
 				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
+				$stmt->bindParam(':fecha_hora', $this->fecha_hora, PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
+				$stmt->bindParam(':usuario', $this->usuario->getId(), PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
 				
 				$e = Elemento::elemento($this->elemento->getNombre());
@@ -162,7 +177,7 @@ class Retiro{
 				
 				$stmt->execute();
 				
-				$sql = "UPDATE retiro SET agente = :agente, elemento = :elemento, fecha = :fecha, cantidad = :cantidad, comentario = :comentario
+				$sql = "UPDATE retiro SET agente = :agente, elemento = :elemento, fecha = :fecha, fecha_hora = :fecha_hora, cantidad = :cantidad, usuario = :usuario, comentario = :comentario
 						WHERE id = :id";
 				
 				$stmt = $conn->prepare($sql);
@@ -170,7 +185,9 @@ class Retiro{
 				$stmt->bindParam(':agente', $this->agente->getId(), PDO::PARAM_INT);
 				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
+				$stmt->bindParam(':fecha_hora', $this->fecha_hora, PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
+				$stmt->bindParam(':usuario', $this->usuario->getId(), PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
 				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 				
@@ -233,7 +250,7 @@ class Retiro{
 		
 		$conn->exec("set names latin1");
 		
-		$sql = "SELECT CONCAT(apellido, ', ', nombre) AS agente, elemento, fecha, cantidad, comentario FROM retiro r, agente a WHERE a.id = r.agente  ORDER BY fecha DESC";
+		$sql = "SELECT CONCAT(apellido, ', ', nombre) AS agente, elemento, fecha_hora, cantidad, usuario, comentario FROM retiro r, agente a WHERE a.id = r.agente  ORDER BY fecha_hora DESC";
 		
 		$consulta = $conn->prepare($sql);
 		
@@ -246,7 +263,7 @@ class Retiro{
 			$results = $consulta->fetchall();
 			
 			foreach($results as $r){
-				$t[] = array($r['agente'], $r['elemento'], $r['fecha'], $r['cantidad'], $r['comentario']);
+				$t[] = array($r['agente'], $r['elemento'], $r['fecha_hora'], $r['cantidad'], $r['usuario'], $r['comentario']);
 			}
 		}catch(PDOException $ex){
 			throw new Exception("Ocurrió un error obteniendo los retiros: ". $ex->getMessage());
@@ -316,6 +333,22 @@ class Retiro{
 		$this->cambios = true;
 	}
 	
+	function getFecha_hora(){
+		return $this->fecha_hora;
+	}
+	
+	function setFecha_hora($fecha_hora){
+		
+		if($fecha_hora == "")
+			return;
+		
+		if($this->fecha_hora == $fecha_hora)
+			return;
+		
+		$this->fecha_hora = $fecha_hora;
+		$this->cambios = true;
+	}
+	
 	function getCantidad(){
 		return $this->cantidad;
 	}
@@ -329,6 +362,22 @@ class Retiro{
 			return;
 		
 		$this->cantidad = $cantidad;
+		$this->cambios = true;
+	}
+	
+	function getUsuario(){
+		return $this->usuario;
+	}
+	
+	function setUsuario($usuario){
+		
+		if($usuario == null)
+			return;
+		
+		if($this->usuario != null && $this->usuario->getId() == $usuario->getId())
+			return;
+		
+		$this->usuario = Usuario::usuario($id=$usuario);
 		$this->cambios = true;
 	}
 	

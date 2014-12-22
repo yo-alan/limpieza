@@ -189,6 +189,7 @@
 				
 				session_start();
 				
+				$_SESSION['id'] = $u->getId();
 				$_SESSION['usuario'] = $u->getNombre();
 				$_SESSION['nivel'] = $u->getNivel();
 				

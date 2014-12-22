@@ -226,7 +226,9 @@
 			$i->setElemento($_POST['elemento']);
 			$i->setCantidad($_POST['cantidad']);
 			$i->setFecha($_POST['fecha']);
+			$i->setFecha_hora(date('Y-m-d H:i:s'));
 			$i->setExpediente($_POST['expediente']);
+			$i->setUsuario($_SESSION['id']);
 			$i->setComentario($_POST['comentario']);
 			
 			$i->guardar();
@@ -257,7 +259,9 @@
 			$i->setElemento($_POST['elemento']);
 			$i->setCantidad($_POST['cantidad']);
 			$i->setFecha($_POST['fecha']);
+			$i->setFecha_hora(date('Y-m-d H:i:s'));
 			$i->setExpediente($_POST['expediente']);
+			$i->setUsuario($_SESSION['id']);
 			$i->setComentario($_POST['comentario']);
 			
 			$i->guardar();
@@ -288,7 +292,9 @@
 			$r->setAgente($_POST['agente']);
 			$r->setElemento($_POST['elemento']);
 			$r->setFecha($_POST['fecha']);
+			$r->setFecha_hora(date('Y-m-d H:i:s'));
 			$r->setCantidad($_POST['cantidad']);
+			$r->setUsuario($_SESSION['id']);
 			$r->setComentario($_POST['comentario']);
 			
 			$r->guardar();
@@ -321,7 +327,9 @@
 			$r->setAgente(Agente::agente($_POST['agente']));
 			$r->setElemento(Elemento::elemento($_POST['elemento']));
 			$r->setFecha($_POST['fecha']);
+			$r->setFecha_hora(date('Y-m-d H:i:s'));
 			$r->setCantidad($_POST['cantidad']);
+			$r->setUsuario($_SESSION['id']);
 			$r->setComentario($_POST['comentario']);
 			
 			$r->guardar();

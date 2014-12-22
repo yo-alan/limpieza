@@ -2,6 +2,7 @@
 
 require_once "conexion.class.php";
 require_once "elemento.class.php";
+require_once "usuario.class.php";
 
 class Ingreso{
 	
@@ -11,7 +12,9 @@ class Ingreso{
 	private $elemento;
 	private $cantidad;
 	private $fecha;
+	private $fecha_hora;
 	private $expediente;
+	private $usuario;
 	private $comentario;
 	
 	function __construct(){
@@ -21,7 +24,9 @@ class Ingreso{
 		$this->elemento = null;
 		$this->cantidad = 0;
 		$this->fecha = "";
+		$this->fecha_hora = "";
 		$this->expediente = "";
+		$this->usuario = null;
 		$this->comentario = "";
 	}
 	
@@ -52,7 +57,9 @@ class Ingreso{
 			$i->elemento = Elemento::elemento($results['elemento']);
 			$i->cantidad = $results['cantidad'];
 			$i->fecha = $results['fecha'];
+			$i->fecha_hora = $results['fecha_hora'];
 			$i->expediente = $results['expediente'];
+			$i->usuario = Usuario::usuario($id=$results['usuario']);
 			$i->comentario = $results['comentario'];
 			$i->nuevo = false;
 			$i->cambios = false;
@@ -71,7 +78,7 @@ class Ingreso{
 		
 		$conn = new Conexion();
 		
-		$sql = 'SELECT id FROM ingreso ORDER BY fecha DESC';
+		$sql = 'SELECT id FROM ingreso ORDER BY fecha_hora DESC';
 		
 		$consulta = $conn->prepare($sql);
 		
@@ -114,23 +121,31 @@ class Ingreso{
 		if($this->fecha == "")
 			throw new Exception("La fecha no es válida.");
 		
+		if($this->fecha_hora == "")
+			throw new Exception("La fecha y la hora no son válidas.");
+		
 		if($this->expediente == "")
 			throw new Exception("El número de expediente no es válido.");
+		
+		if($this->usuario == null)
+			throw new Exception("El usuario no es válido.");
 		
 		$conn = new Conexion();
 		
 		if($this->nuevo){//Si el objeto es nuevo se hace un INSERT
 			
 			try{
-				$sql = "INSERT INTO ingreso(elemento, cantidad, fecha, expediente, comentario)
-						VALUES(:elemento, :cantidad, :fecha, :expediente, :comentario)";
+				$sql = "INSERT INTO ingreso(elemento, cantidad, fecha, fecha_hora, expediente, usuario, comentario)
+						VALUES(:elemento, :cantidad, :fecha, :fecha_hora, :expediente, :usuario, :comentario)";
 				
 				$stmt = $conn->prepare($sql);
 				
 				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
+				$stmt->bindParam(':fecha_hora', $this->fecha_hora, PDO::PARAM_STR);
 				$stmt->bindParam(':expediente', $this->expediente, PDO::PARAM_STR);
+				$stmt->bindParam(':usuario', $this->usuario->getId(), PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
 				
 				$stmt->execute();
@@ -161,7 +176,7 @@ class Ingreso{
 				
 				$stmt->execute();
 				
-				$sql = "UPDATE ingreso SET elemento = :elemento, cantidad = :cantidad, fecha = :fecha, expediente = :expediente, comentario = :comentario
+				$sql = "UPDATE ingreso SET elemento = :elemento, cantidad = :cantidad, fecha = :fecha, fecha_hora = :fecha_hora, expediente = :expediente, usuario = :usuario, comentario = :comentario
 						WHERE id = :id";
 				
 				$stmt = $conn->prepare($sql);
@@ -169,7 +184,9 @@ class Ingreso{
 				$stmt->bindParam(':elemento', $this->elemento->getNombre(), PDO::PARAM_STR);
 				$stmt->bindParam(':cantidad', $this->cantidad, PDO::PARAM_INT);
 				$stmt->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
+				$stmt->bindParam(':fecha_hora', $this->fecha_hora, PDO::PARAM_STR);
 				$stmt->bindParam(':expediente', $this->expediente, PDO::PARAM_STR);
+				$stmt->bindParam(':usuario', $this->usuario->getId(), PDO::PARAM_INT);
 				$stmt->bindParam(':comentario', $this->comentario, PDO::PARAM_STR);
 				$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 				
@@ -286,6 +303,22 @@ class Ingreso{
 		$this->cambios = true;
 	}
 	
+	function getFecha_hora(){
+		return $this->fecha_hora;
+	}
+	
+	function setFecha_hora($fecha_hora){
+		
+		if($fecha_hora == "")
+			return;
+		
+		if($this->fecha_hora == $fecha_hora)
+			return;
+		
+		$this->fecha_hora = $fecha_hora;
+		$this->cambios = true;
+	}
+	
 	function getExpediente(){
 		return $this->expediente;
 	}
@@ -299,6 +332,22 @@ class Ingreso{
 			return;
 		
 		$this->expediente = $expediente;
+		$this->cambios = true;
+	}
+	
+	function getUsuario(){
+		return $this->usuario;
+	}
+	
+	function setUsuario($usuario){
+		
+		if($usuario == null)
+			return;
+		
+		if($this->usuario != null && $this->usuario->getId() == $usuario->getId())
+			return;
+		
+		$this->usuario = Usuario::usuario($id=$usuario);
 		$this->cambios = true;
 	}
 	

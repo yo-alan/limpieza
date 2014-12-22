@@ -92,6 +92,12 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="usuario" class="col-sm-3 control-label">Usuario: </label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" name="usuario"  value="<?php echo $_SESSION["usuario"] ?>" disabled>
+							</div>
+						</div>
+						<div class="form-group">
 							<div class="col-sm-4 col-md-offset-8">
 								<button type='submit' class='btn btn-default'>Guardar</button>
 							</div>
